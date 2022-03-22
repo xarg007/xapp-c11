@@ -14,8 +14,13 @@ mtx_t xhex_mutex;
 //int mtx_lock( mtx_t* mutex );
 int xlog_core(unsigned int ui_level, const char* fmt, va_list args)
 {
+	if(ui_level == 0)
+	{
+		return 0;
+	}
+
 	int iret = vprintf(fmt, args);
-	fflush(stdout);
+	//fflush(stdout);
 	return iret;
 }
 
@@ -590,6 +595,11 @@ x
 ==241770== ERROR SUMMARY: 122 errors from 12 contexts (suppressed: 0 from 0)
 xadmin@hw:~/xwks.git.1/xapp-c11$ 
 
-
+valgrind包含很多工具，其中memcheck是一个内存错误检测工具。它能检测出C/C++中的常见内存问题：
+（1）内存访问错误，如内存溢出，访问已释放的内存；
+（2）使用未初始化的值；
+（3）不正确的释放内存，如两次释放内存块，或者不匹配的使用malloc/new/new[] ,  对应于 free/delete/delete[];
+（4）使用memcoy相关函数导致的内存重叠 ；
+（5）内存泄漏；    
 
 #endif
