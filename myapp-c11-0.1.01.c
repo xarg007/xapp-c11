@@ -5,7 +5,8 @@
 //https://en.cppreference.com/w/
 //https://zh.cppreference.com/w/c/language/main_function
 
-// gcc -std=c11 -g -Wall -O0 myapp-c11-0.1.00.c -o myapp
+//01: 变长参数函数+进程参数+环境变量；
+// gcc -std=c11 -g -Wall -O0 myapp-c11-0.1.01.c -o myapp
 
 //https://zh.cppreference.com/w/c/variadic
 //int vprintf(const char *format, va_list arg);
