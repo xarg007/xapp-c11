@@ -8,6 +8,10 @@
 //C11 标准线程测试
 //gcc -std=c11 -g -Wall -O0 myapp-c11-0.1.04.c -o myapp -pthread
 
+mtx_t xlog_mutex;
+mtx_t xhex_mutex;
+
+//int mtx_lock( mtx_t* mutex );
 int xlog_core(unsigned int ui_level, const char* fmt, va_list args)
 {
 	int iret = vprintf(fmt, args);
@@ -17,6 +21,8 @@ int xlog_core(unsigned int ui_level, const char* fmt, va_list args)
 
 int xlog_info(const char* fmt, ...)
 {
+	mtx_lock(&xlog_mutex);
+	
 	int iret = 0, log_switch = 1;
 	
 	if (log_switch)
@@ -27,12 +33,16 @@ int xlog_info(const char* fmt, ...)
 		va_end(args);
 	}
 	
+	mtx_unlock(&xlog_mutex);
+	
 	return iret;
 }
 
 void DumpHex(unsigned char* pData, unsigned int iLen)
 {
 	if (pData == NULL || iLen == 0) { return; }
+	
+	mtx_lock(&xhex_mutex);
 	
 	xlog_info("\n");
 	xlog_info("%016p", pData);
@@ -122,7 +132,7 @@ void DumpHex(unsigned char* pData, unsigned int iLen)
 	}
 	xlog_info("      =============================================================================\n");
 	xlog_info("\n");
-	
+	mtx_unlock(&xhex_mutex);
 	return;
 }
 
@@ -159,6 +169,9 @@ int main(int argc, char* argv[])
 {
 	xlog_info("  >> the app starting ... ...\n");
 	
+	mtx_init(&xhex_mutex, mtx_plain);
+	mtx_init(&xlog_mutex, mtx_plain);
+	
 	int iret = 0;
 	
 	thrd_t thrd_this = thrd_current();
@@ -179,9 +192,7 @@ int main(int argc, char* argv[])
 		}
 		
 		DumpHex((unsigned char*)&thrd_handle, 16*5+10);
-		
 		xlog_info("  >> the app create new thread ok.\n");
-		
 	}while(0);
 	
 	while(getchar() != 'x')
@@ -192,6 +203,7 @@ int main(int argc, char* argv[])
 	do
 	{
 		int ires = 0;
+
 		iret = thrd_join(thrd_handle, &ires); //(since C11)
 	
 		if(iret != thrd_success)
@@ -203,5 +215,65 @@ int main(int argc, char* argv[])
 		xlog_info("  >>> main() join thread ok.(0x%x)\n", ires);
 	}while(0);
 	
+	mtx_destroy(&xlog_mutex);
+	mtx_destroy(&xhex_mutex);
 	xlog_info("  >> the app exit.\n");
 }
+
+#if 0
+xadmin@hw:~/xwks.git.1/xapp-c11$ gcc -std=c11 -g -Wall -O0 myapp-c11-0.1.04.c -o myapp -pthread
+xadmin@hw:~/xwks.git.1/xapp-c11$ ./myapp
+  >> the app starting ... ...
+
+//0x007fc0cbe8e740|00 01 02 03 04 05 06 07  08 09 0A 0B 0C 0D 0E 0F|0123456789ABCDEF|
+//      =============================================================================
+//      0x00000000|40 e7 e8 cb c0 7f 00 00  a0 f0 e8 cb c0 7f 00 00|@...............|
+//      0x00000010|40 e7 e8 cb c0 7f 00 00  00 00 00 00 00 00 00 00|@...............|
+//      0x00000020|00 00 00 00 00 00 00 00  00 6c c2 e1 44 4f df 08|.........l..DO..|
+//      0x00000030|84 b8 67 a0 5b f3 85 d3  00 00 00 00 00 00 00 00|..g.[...........|
+//      0x00000040|00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00|................|
+//      0x00000050|00 00 00 00 00 00 00 00  00 00 ** ** ** ** ** **|..........******|
+//      =============================================================================
+
+  >> the app create new thread .
+  >> the app create new thread ok.
+   ==> thrd_func(0x7ffe10ceba30) entry.
+      => struct s_thrd_param_t p_param=0x7ffe10ceba30
+      => {                     
+      =>      int i_test1=0x11;  
+      =>      int i_test2=0x22;  
+      => };                    
+
+//0x007fc0cbe8d700|00 01 02 03 04 05 06 07  08 09 0A 0B 0C 0D 0E 0F|0123456789ABCDEF|
+//      =============================================================================
+//      0x00000000|00 d7 e8 cb c0 7f 00 00  c0 26 50 62 26 56 00 00|.........&Pb&V..|
+//      0x00000010|00 d7 e8 cb c0 7f 00 00  01 00 00 00 00 00 00 00|................|
+//      0x00000020|00 00 00 00 00 00 00 00  00 6c c2 e1 44 4f df 08|.........l..DO..|
+//      0x00000030|84 b8 67 a0 5b f3 85 d3  00 00 00 00 00 00 00 00|..g.[...........|
+//      0x00000040|00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00|................|
+//      0x00000050|00 00 00 00 00 00 00 00  00 00 ** ** ** ** ** **|..........******|
+//      =============================================================================
+
+      => Time: Wed Mar 23 00:33:17 2022
+      => Time: Wed Mar 23 00:33:22 2022
+   ==> thrd_func() exit.
+g
+  >> press 'x' exit the app.
+  >> press 'x' exit the app.
+x
+
+//0x007ffe10ceba20|00 01 02 03 04 05 06 07  08 09 0A 0B 0C 0D 0E 0F|0123456789ABCDEF|
+//      =============================================================================
+//      0x00000000|00 d7 e8 cb c0 7f 00 00  40 e7 e8 cb c0 7f 00 00|........@.......|
+//      0x00000010|11 00 00 00 22 00 00 00  00 6c c2 e1 44 4f df 08|...."....l..DO..|
+//      0x00000020|00 00 00 00 00 00 00 00  b3 50 eb cb c0 7f 00 00|.........P......|
+//      0x00000030|00 00 00 00 00 00 00 00  38 bb ce 10 fe 7f 00 00|........8.......|
+//      0x00000040|a0 97 07 cc 01 00 00 00  9f 38 62 60 26 56 00 00|.........8b`&V..|
+//      0x00000050|20 3a 62 60 26 56 00 00  0b a7 ** ** ** ** ** **| :b`&V....******|
+//      =============================================================================
+
+  >>> main() join thread ok.(0xfe)
+  >> the app exit.
+xadmin@hw:~/xwks.git.1/xapp-c11$ 
+
+#endif
