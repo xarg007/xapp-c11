@@ -5,7 +5,7 @@
 #include <threads.h>
 
 //https://en.cppreference.com/w/c/thread
-//C11 标准线程测试
+//05: C11 标准线程测试
 //gcc -std=c11 -g -Wall -O0 myapp-c11-0.1.04.c -o myapp -pthread
 
 mtx_t xlog_mutex;
