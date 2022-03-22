@@ -165,11 +165,11 @@ int main(int argc, char* argv[])
 	
 	DumpHex((unsigned char*)thrd_this, 16*5+10);
 	
+	struct s_thrd_param_t param = {0x11, 0x22};
+	thrd_t thrd_handle = {0};
+	
 	do
 	{
-		struct s_thrd_param_t param = {0x11, 0x22};
-		thrd_t thrd_handle = {0};
-		
 		xlog_info("  >> the app create new thread .\n");
 		iret = thrd_create(&thrd_handle, thrd_func, (void *)&param);
 		if(iret != thrd_success)
@@ -182,23 +182,27 @@ int main(int argc, char* argv[])
 		
 		xlog_info("  >> the app create new thread ok.\n");
 		
-		while(getchar() != 'x')
-		{
-			xlog_info("  >> press 'x' exit the app.\n");
-		}
-		
+	}while(0);
+	
+	while(getchar() != 'x')
+	{
+		xlog_info("  >> press 'x' exit the app.\n");
+	}
+	
+	do
+	{
 		int ires = 0;
 		iret = thrd_join(thrd_handle, &ires); //(since C11)
-		
+	
 		if(iret != thrd_success)
 		{
 			xlog_info("  >>> main() join thread error.(%d)\n", iret);
 			return -1;
 		}
-		
-		xlog_info("  >>> main() join thread ok.(0x%x)\n", ires);
-		
-	}while(0);
+	}
+	
+	xlog_info("  >>> main() join thread ok.(0x%x)\n", ires);
+
 	
 	xlog_info("  >> the app exit.\n");
 }
