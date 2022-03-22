@@ -199,10 +199,9 @@ int main(int argc, char* argv[])
 			xlog_info("  >>> main() join thread error.(%d)\n", iret);
 			return -1;
 		}
-	}
-	
-	xlog_info("  >>> main() join thread ok.(0x%x)\n", ires);
-
+		
+		xlog_info("  >>> main() join thread ok.(0x%x)\n", ires);
+	}while(0);
 	
 	xlog_info("  >> the app exit.\n");
 }
