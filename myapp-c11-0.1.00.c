@@ -8,7 +8,7 @@
 // gcc -std=c11 -g -Wall -O0 myapp-c11-0.1.00.c -o myapp
 // gcc xapp-c11-0.1.00.c -o myapp
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	printf("  >> the app starting ... ...\n");
 
@@ -109,20 +109,20 @@ Configured with : .. / src / configure - v --with - pkgversion = 'Ubuntu 9.4.0-1
 	COLLECT_GCC_OPTIONS = '-v' '-std=c11' '-g' '-Wall' '-O0' '-o' 'myapp' '-mtune=generic' '-march=x86-64'
 	xadmin@hw : ~/ xwks.git.1 / xapp - c11$
 
-	#执行程序
+#执行程序
 	xadmin@hw:~/ xwks.git.1 / xapp - c11$ . / myapp
 	>> the app starting ... ...
 	>> > do something ... ...
 	>> the app exit.
 	xadmin@hw:~/ xwks.git.1 / xapp - c11$
 
-	#确认文件类型
+#确认文件类型
 	xadmin@hw:~/ xwks.git.1 / xapp - c11$ file xapp - c11 - 0.1.00.c myapp
 	xapp - c11 - 0.1.00.c : C source, ASCII text
 	myapp : ELF 64 - bit LSB shared object, x86 - 64, version 1 (SYSV), dynamically linked, interpreter / lib64 / ld - linux - x86 - 64.so.2, BuildID[sha1] = 2dcac66781e880d102663e64f697e54a1b5ad164, for GNU / Linux 3.2.0, with debug_info, not stripped
 	xadmin@hw : ~/ xwks.git.1 / xapp - c11$
 
-	#查看可执行文件依赖的动态链接库
+#查看可执行文件依赖的动态链接库
 	xadmin@hw:~/ xwks.git.1 / xapp - c11$ ldd myapp
 	linux - vdso.so.1 (0x00007ffd47726000)
 	libc.so.6 = > / lib / x86_64 - linux - gnu / libc.so.6 (0x00007fa05b48c000)
@@ -150,7 +150,7 @@ Configured with : .. / src / configure - v --with - pkgversion = 'Ubuntu 9.4.0-1
 	statically linked
 #== == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == =
 
-	#分析可执行文件ELF头信息
+#分析可执行文件ELF头信息
 	xadmin@hw:~/ xwks.git.1 / xapp - c11$ readelf - h myapp
 	ELF 头：
 	Magic：   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00
@@ -174,7 +174,7 @@ Configured with : .. / src / configure - v --with - pkgversion = 'Ubuntu 9.4.0-1
 	Section header string table index : 35
 	xadmin@hw : ~/ xwks.git.1 / xapp - c11$
 
-	#查看可执行文件的反汇编
+#查看可执行文件的反汇编
 	xadmin@hw:~/ xwks.git.1 / xapp - c11$ objdump - d - Mintel myapp
 
 	myapp：     文件格式 elf64 - x86 - 64
