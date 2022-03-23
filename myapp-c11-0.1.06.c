@@ -2,14 +2,11 @@
 #include <stdarg.h>
 #include <ctype.h>
 #include <unistd.h>
-#include <pthread.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <errno.h>
 
-// 05: C11 posix thread test
-// gcc -std=c11 -g -Wall -O0 myapp-c11-0.1.04.c -o myapp -pthread
-
-pthread_mutex_t xlog_mutex = {0};
-
-#if 1
 int xlog_core(unsigned int ui_level, const char *fmt, va_list args)
 {
   if (ui_level == 0)
@@ -42,7 +39,7 @@ int xlog_info(const char *fmt, ...)
 {
   int iret = 0;
 
-  pthread_mutex_lock(&xlog_mutex);
+  // pthread_mutex_lock(&xlog_mutex);
   int log_switch = 1;
   va_list args = {0};
   if (log_switch)
@@ -53,13 +50,12 @@ int xlog_info(const char *fmt, ...)
     va_end(args);
   }
 
-  pthread_mutex_unlock(&xlog_mutex);
+  // pthread_mutex_unlock(&xlog_mutex);
   return iret;
 }
-#else
-#define xlog_info printf
-#define xlog_info_hex printf
-#endif
+
+//#define xlog_info printf
+//#define xlog_info_hex printf
 
 void DumpHex(unsigned char *pData, unsigned int iLen)
 {
@@ -67,7 +63,7 @@ void DumpHex(unsigned char *pData, unsigned int iLen)
   {
     return;
   }
-  pthread_mutex_lock(&xlog_mutex);
+  // pthread_mutex_lock(&xlog_mutex);
   xlog_info_hex("\n");
   xlog_info_hex("%016p", pData);
   xlog_info_hex("|00 01 02 03 04 05 06 07  08 09 0A 0B 0C 0D 0E 0F|0123456789ABCDEF|\n");
@@ -170,50 +166,24 @@ void DumpHex(unsigned char *pData, unsigned int iLen)
   xlog_info_hex("      =============================================================================\n");
   xlog_info_hex("\n");
 
-  pthread_mutex_unlock(&xlog_mutex);
+  // pthread_mutex_unlock(&xlog_mutex);
   return;
 }
 
-/* Create a new thread, starting with execution of START-ROUTINE
-   getting passed ARG.  Creation attributed come from ATTR.  The new
-   handle is stored in *NEWTHREAD.  */
-// extern int pthread_create (pthread_t *__restrict __newthread,
-//			   const pthread_attr_t *__restrict __attr,
-//			   void *(*__start_routine) (void *),
-//			   void *__restrict __arg) __THROWNL __nonnull ((1, 3));
-
-struct s_ptrd_param_t
+int main_proc()
 {
-  int i_test1;
-  int i_test2;
-};
-
-void *thread_func_tst(void *pvoid)
-{
-  xlog_info("   >>> thread_func_tst(void * param=%p)\n", pvoid);
-  if (pvoid == NULL)
-    return NULL;
-
-  struct s_ptrd_param_t *p_param = (struct s_ptrd_param_t *)pvoid;
-
-  xlog_info("      => struct s_ptrd_param_t p_param=%p\n", p_param);
-  xlog_info("      => {                     \n");
-  xlog_info("      =>      int i_test1=0x%x;  \n", p_param->i_test1);
-  xlog_info("      =>      int i_test2=0x%x;  \n", p_param->i_test2);
-  xlog_info("      => };                    \n");
-
-  pthread_t thrd_this = pthread_self();
-
-  DumpHex((unsigned char *)thrd_this, 16 * 5 + 10);
-
+  xlog_info("  >> the main_proc() starting ... ...(pid=0x%x)\n", getpid());
   sleep(2);
+  xlog_info("  >> the main_proc() exit.(pid=0x%x)\n", getpid());
+  return 0;
+}
 
-  xlog_info("   >>> thread_func_tst() exit.\n");
-
-  p_param->i_test1 = 0x9;
-  p_param->i_test2 = 0x8;
-
-  return (void *)p_param;
+int new_proc()
+{
+  xlog_info("  >> the new_proc() starting ... ...(pid=0x%x)\n", getpid());
+  sleep(5);
+  xlog_info("  >> the new_proc() exit.(pid=0x%x)\n", getpid());
+  return 0xca;
 }
 
 int main(int argc, char *argv[])
@@ -221,497 +191,76 @@ int main(int argc, char *argv[])
   xlog_info("  >> the app starting ... ...\n");
   xlog_info("  >> main(%d, %p)\n", argc, argv);
 
-  pthread_mutex_init(&xlog_mutex, NULL);
-
+  //pid_t fpid_mproc = getpid();
   int iret = 0;
+  pid_t fpid_new = {0};
 
-  pthread_t thrd_this = pthread_self();
+  fpid_new = fork();
 
-  DumpHex((unsigned char *)&thrd_this, 16 * 5 + 10);
-
-  struct s_ptrd_param_t param =
-      {
-          .i_test1 = 0x11,
-          .i_test2 = 0x22};
-
-  pthread_t ptrd_hd = {0};
-
-  do
+  if (fpid_new > 0)
   {
-    xlog_info("  >> the app create new thread .\n");
-    iret = pthread_create(&ptrd_hd, NULL, thread_func_tst, (void *)&param);
-    if (iret != 0)
-    {
-      xlog_info("   >>> main() creat thread error(%d)\n", iret);
-      return -1;
-    }
-
-    DumpHex((unsigned char *)&ptrd_hd, 16 * 5 + 10);
-    xlog_info("  >> the app create new thread ok.\n");
-  } while (0);
-
-  while (getchar() != 'x')
+    //还在主进程，fpid是子进程的进号ID
+    iret = main_proc();
+  }
+  else if (fpid_new == 0)
   {
-    xlog_info("  >> press 'x' exit the app.\n");
+    //开始执行子进程
+    xlog_info("  >> new process continue run ...\n");
+    iret = new_proc();
+  }
+  else
+  {
+    //还在主进程中，创建子进程失败，需要容错处理
+    xlog_info("  >> main() create new process error.\n");
+    iret = -1;
   }
 
-  do
+  int  status = 0;
+  pid_t fpid_qt = {0};
+  xlog_info("  >> main() wait new process(0x%x) quit ... ...\n", fpid_new);
+  fpid_qt = waitpid(fpid_new, &status, 0);
+  if (fpid_new == fpid_qt)
   {
-    void *pret = 0;
+    xlog_info("  >> main() wait new process(0x%x) quit ok.(%x)\n", fpid_qt, status);
+    xlog_info("  >> main() wait new process(0x%x) quit.(%s).\n", fpid_new, strerror(errno));
+  }
+  else if (fpid_qt == -1)
+  {
+    xlog_info("  >> main() wait new process(0x%x) quit error(%s).\n", fpid_new, strerror(errno));
+  }
+  else
+  {
+    xlog_info("  >> main() wait new process(0x%x) quit.(%s).\n", fpid_new, strerror(errno));
+  }
 
-    iret = pthread_join(ptrd_hd, &pret); //(since C11)
+  xlog_info("  >> the app(pid=0x%x) exit(iret=%x).\n", getpid(), iret);
 
-    if (iret != 0)
-    {
-      xlog_info("   >>> main() join thread error.(thread_func() ret = %p)\n", pret);
-      return -1;
-    }
-    else
-    {
-      xlog_info("  >>> main() join thread ok.(0x%x)\n", iret);
-      struct s_ptrd_param_t *p_param = (struct s_ptrd_param_t *)pret;
-      xlog_info("      struct s_ptrd_param_t p_param=%p\n", p_param);
-      xlog_info("      {                     \n");
-      xlog_info("            int i_test1=0x%x;  \n", p_param->i_test1);
-      xlog_info("            int i_test2=0x%x;  \n", p_param->i_test2);
-      xlog_info("      };                    \n");
-    }
-  } while (0);
-
-  pthread_mutex_destroy(&xlog_mutex);
-
-  xlog_info("  >> the app exit.\n");
+  return 0;
 }
 
+// pid_t waitpid(pid_t pid,int *status,int options);
+//===========================================================
+// pid_t pid
+//     pid<-1 等待进程组号为pid绝对值的任何子进程。
+//     pid=-1 等待任何子进程，此时的waitpid()函数就退化成了普通的wait()函数。
+//     pid=0  等待进程组号与目前进程相同的任何子进程，也就是说任何和调用waitpid()函数的进程在同一个进程组的进程。
+//     pid>0  等待进程号为pid的子进程。
+// int *status
+//     这个参数将保存子进程的状态信息，有了这个信息父进程就可以了解子进程为什么会推出，是正常推出还是出了什么错误。如果status不是空指针，则状态信息将被写入
+//     器指向的位置。当然，如果不关心子进程为什么推出的话，也可以传入空指针。
+//     Linux提供了一些非常有用的宏来帮助解析这个状态信息，这些宏都定义在sys/wait.h头文件中。主要有以下几个：
+//     宏                  说明
+//     WIFEXITED(status)   如果子进程正常结束，它就返回真；否则返回假。
+//     WEXITSTATUS(status) 如果WIFEXITED(status)为真，则可以用该宏取得子进程exit()返回的结束代码。
+//     WIFSIGNALED(status) 如果子进程因为一个未捕获的信号而终止，它就返回真；否则返回假。
+//     WTERMSIG(status)    如果WIFSIGNALED(status)为真，则可以用该宏获得导致子进程终止的信号代码。
+//     WIFSTOPPED(status)  如果当前子进程被暂停了，则返回真；否则返回假。
+//     WSTOPSIG(status)    如果WIFSTOPPED(status)为真，则可以使用该宏获得导致子进程暂停的信号代码。
+// int options
+//     参数options提供了一些另外的选项来控制waitpid()函数的行为。如果不想使用这些选项，则可以把这个参数设为0。
+//     主要使用的有以下两个选项：
+//     参数	说明
+//     WNOHANG	如果pid指定的子进程没有结束，则waitpid()函数立即返回0，而不是阻塞在这个函数上等待；如果结束了，则返回该子进程的进程号。
+//     WUNTRACED	如果子进程进入暂停状态，则马上返回。
+
 // https://valgrind.org/docs/manual/manual.html
-
-#if 0
-xadmin@hw:~/xwks.git.1/xapp-c11$ ./myapp
-  >> the app starting ... ...
-  >> main(1, 0x7ffcd7929658)
-  >> the app create new thread .
-
-0x007ffcd7929538|00 01 02 03 04 05 06 07  08 09 0A 0B 0C 0D 0E 0F|0123456789ABCDEF|
-      =============================================================================
-      0x00000000|00 b7 6b 96 69 7f 00 00  00 00 00 00 00 00 00 00|..k.i...........|
-      0x00000010|e0 c1 27 9f 67 55 00 00  11 00 00 00 22 00 00 00|..'.gU......"...|
-      0x00000020|00 17 d3 02 62 8b 97 05  00 00 00 00 00 00 00 00|....b...........|
-      0x00000030|b3 30 6e 96 69 7f 00 00  00 00 00 00 00 00 00 00|.0n.i...........|
-      0x00000040|58 96 92 d7 fc 7f 00 00  a0 77 8a 96 01 00 00 00|X........w......|
-      0x00000050|e0 c9 27 9f 67 55 00 00  00 cc ** ** ** ** ** **|..'.gU....******|
-      =============================================================================
-
-  >> the app create new thread ok.
-   >>> thread_func_tst(void * param=0x7ffcd7929550)
-      => struct s_ptrd_param_t p_param=0x7ffcd7929550
-      => {                     
-      =>      int i_test1=0x11;  
-      =>      int i_test2=0x22;  
-      => };                    
-
-0x007f69966bb700|00 01 02 03 04 05 06 07  08 09 0A 0B 0C 0D 0E 0F|0123456789ABCDEF|
-      =============================================================================
-      0x00000000|00 b7 6b 96 69 7f 00 00  c0 16 c3 a0 67 55 00 00|..k.i.......gU..|
-      0x00000010|00 b7 6b 96 69 7f 00 00  01 00 00 00 00 00 00 00|..k.i...........|
-      0x00000020|00 00 00 00 00 00 00 00  00 17 d3 02 62 8b 97 05|............b...|
-      0x00000030|7d 69 c5 bf c4 03 90 97  00 00 00 00 00 00 00 00|}i..............|
-      0x00000040|00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00|................|
-      0x00000050|00 00 00 00 00 00 00 00  00 00 ** ** ** ** ** **|..........******|
-      =============================================================================
-
-x   >>> thread_func_tst() exit.
-
-  >>> main() join thread ok.(0x0)
-      struct s_ptrd_param_t p_param=0x7ffcd7929550
-      {                     
-            int i_test1=0x9;  
-            int i_test2=0x8;  
-      };                    
-  >> the app exit.
-xadmin@hw:~/xwks.git.1/xapp-c11$ 
-
-xadmin@hw:~/xwks.git.1/xapp-c11$ valgrind --tool=memcheck --leak-check=full --track-origins=yes -s ./myapp
-==256605== Memcheck, a memory error detector
-==256605== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==256605== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==256605== Command: ./myapp
-==256605== 
-  >> the app starting ... ...
-  >> main(1, 0x1ffefffee8)
-  >> the app create new thread .
-
-0x00001ffefffdc8|00 01 02 03 04 05 06 07  08 09 0A 0B 0C 0D 0E 0F|0123456789ABCDEF|
-      =============================================================================
-      0x00000000|00 f7 67 05 00 00 00 00  ==256605== Use of uninitialised value of size 8
-==256605==    at 0x48E566A: _itoa_word (_itoa.c:180)
-==256605==    by 0x49015A4: __vfprintf_internal (vfprintf-internal.c:1687)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x1096EE: DumpHex (myapp-c11-0.1.05.c:103)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x48E567C: _itoa_word (_itoa.c:180)
-==256605==    by 0x49015A4: __vfprintf_internal (vfprintf-internal.c:1687)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x1096EE: DumpHex (myapp-c11-0.1.05.c:103)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x4902258: __vfprintf_internal (vfprintf-internal.c:1687)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x1096EE: DumpHex (myapp-c11-0.1.05.c:103)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x490171E: __vfprintf_internal (vfprintf-internal.c:1687)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x1096EE: DumpHex (myapp-c11-0.1.05.c:103)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-00 00 00 00 00 00 00 ==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x4902258: __vfprintf_internal (vfprintf-internal.c:1687)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x10971F: DumpHex (myapp-c11-0.1.05.c:104)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x490171E: __vfprintf_internal (vfprintf-internal.c:1687)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x10971F: DumpHex (myapp-c11-0.1.05.c:104)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-00|..g.....==256605== Use of uninitialised value of size 8
-==256605==    at 0x1097BE: DumpHex (myapp-c11-0.1.05.c:127)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== Use of uninitialised value of size 8
-==256605==    at 0x1097DF: DumpHex (myapp-c11-0.1.05.c:128)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== Use of uninitialised value of size 8
-==256605==    at 0x109800: DumpHex (myapp-c11-0.1.05.c:129)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x109811: DumpHex (myapp-c11-0.1.05.c:130)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x109817: DumpHex (myapp-c11-0.1.05.c:131)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x109830: DumpHex (myapp-c11-0.1.05.c:136)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-........|
-      0x00000010|==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x4902258: __vfprintf_internal (vfprintf-internal.c:1687)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x10966D: DumpHex (myapp-c11-0.1.05.c:87)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x490171E: __vfprintf_internal (vfprintf-internal.c:1687)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x10966D: DumpHex (myapp-c11-0.1.05.c:87)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-e0 91 10 00 00 00 00 00  11 00 00 00 22 00 00 00|............"...|
-      0x00000020|00 21 d9 5d d8 29 2c 1b  00 00 00 00 00 00 00 00|.!.].),.........|
-      0x00000030|b3 e0 8a 04 00 00 00 00  20 d6 02 04 00 00 00 00|........==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x491AE0D: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:783)
-==256605==    by 0x490391D: __vfprintf_internal (vfprintf-internal.c:1688)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x10985B: DumpHex (myapp-c11-0.1.05.c:144)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x48ADFD3: (below main) (libc-start.c:137)
-==256605== 
-==256605== Syscall param write(buf) points to uninitialised byte(s)
-==256605==    at 0x49980DF: __libc_write (write.c:26)
-==256605==    by 0x49980DF: write (write.c:24)
-==256605==    by 0x4918EBC: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1181)
-==256605==    by 0x491A980: new_do_write (fileops.c:449)
-==256605==    by 0x491A980: _IO_new_do_write (fileops.c:426)
-==256605==    by 0x491A980: _IO_do_write@@GLIBC_2.2.5 (fileops.c:423)
-==256605==    by 0x49184A7: _IO_file_sync@@GLIBC_2.2.5 (fileops.c:799)
-==256605==    by 0x490C3F5: fflush (iofflush.c:40)
-==256605==    by 0x109311: xlog_core (myapp-c11-0.1.05.c:21)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x10985B: DumpHex (myapp-c11-0.1.05.c:144)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Address 0x4a7f040 is 0 bytes inside a block of size 1,024 alloc'd
-==256605==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==256605==    by 0x490BD33: _IO_file_doallocate (filedoalloc.c:101)
-==256605==    by 0x491BEFF: _IO_doallocbuf (genops.c:347)
-==256605==    by 0x491AF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
-==256605==    by 0x49196E4: _IO_new_file_xsputn (fileops.c:1244)
-==256605==    by 0x49196E4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
-==256605==    by 0x49009A1: __vfprintf_internal (vfprintf-internal.c:1373)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x109531: xlog_info (myapp-c11-0.1.05.c:52)
-==256605==    by 0x109A12: main (myapp-c11-0.1.05.c:209)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x48ADFD3: (below main) (libc-start.c:137)
-==256605== 
- .......|
-      0x00000040|e8 fe ff fe 1f 00 00 00  00 00 00 00 01 00 00 00|................|
-      0x00000050|e0 99 10 00 00 00 00 00  00 9c ** ** ** ** ** **|..........******|
-      =============================================================================
-
-  >> the app create new thread ok.
-   >>> thread_func_tst(void * param=0x1ffefffde0)
-      => struct s_ptrd_param_t p_param=0x1ffefffde0
-      => {                     
-      =>      int i_test1=0x11;  
-      =>      int i_test2=0x22;  
-      => };                    
-
-0x0000000567f700|00 01 02 03 04 05 06 07  08 09 0A 0B 0C 0D 0E 0F|0123456789ABCDEF|
-      =============================================================================
-      0x00000000|00 f7 67 05 00 00 00 00  90 f4 a7 04 00 00 00 00|..g.............|
-      0x00000010|00 f7 67 05 00 00 00 00  01 00 00 00 00 00 00 00|..g.............|
-      0x00000020|00 00 00 00 00 00 00 00  00 21 d9 5d d8 29 2c 1b|.........!.].),.|
-      0x00000030|56 ea 7c 48 d7 50 53 99  00 00 00 00 00 00 00 00|V.|H.PS.........|
-      0x00000040|00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00|................|
-      0x00000050|00 00 00 00 00 00 00 00  00 00 ** ** ** ** ** **|..........******|
-      =============================================================================
-
-   >>> thread_func_tst() exit.
-x
-  >>> main() join thread ok.(0x0)
-      struct s_ptrd_param_t p_param=0x1ffefffde0
-      {                     
-            int i_test1=0x9;  
-            int i_test2=0x8;  
-      };                    
-  >> the app exit.
-==256605== 
-==256605== HEAP SUMMARY:
-==256605==     in use at exit: 0 bytes in 0 blocks
-==256605==   total heap usage: 3 allocs, 3 frees, 2,320 bytes allocated
-==256605== 
-==256605== All heap blocks were freed -- no leaks are possible
-==256605== 
-==256605== ERROR SUMMARY: 285 errors from 16 contexts (suppressed: 0 from 0)
-==256605== 
-==256605== 1 errors in context 1 of 16:
-==256605== Syscall param write(buf) points to uninitialised byte(s)
-==256605==    at 0x49980DF: __libc_write (write.c:26)
-==256605==    by 0x49980DF: write (write.c:24)
-==256605==    by 0x4918EBC: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1181)
-==256605==    by 0x491A980: new_do_write (fileops.c:449)
-==256605==    by 0x491A980: _IO_new_do_write (fileops.c:426)
-==256605==    by 0x491A980: _IO_do_write@@GLIBC_2.2.5 (fileops.c:423)
-==256605==    by 0x49184A7: _IO_file_sync@@GLIBC_2.2.5 (fileops.c:799)
-==256605==    by 0x490C3F5: fflush (iofflush.c:40)
-==256605==    by 0x109311: xlog_core (myapp-c11-0.1.05.c:21)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x10985B: DumpHex (myapp-c11-0.1.05.c:144)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Address 0x4a7f040 is 0 bytes inside a block of size 1,024 alloc'd
-==256605==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==256605==    by 0x490BD33: _IO_file_doallocate (filedoalloc.c:101)
-==256605==    by 0x491BEFF: _IO_doallocbuf (genops.c:347)
-==256605==    by 0x491AF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
-==256605==    by 0x49196E4: _IO_new_file_xsputn (fileops.c:1244)
-==256605==    by 0x49196E4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
-==256605==    by 0x49009A1: __vfprintf_internal (vfprintf-internal.c:1373)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x109531: xlog_info (myapp-c11-0.1.05.c:52)
-==256605==    by 0x109A12: main (myapp-c11-0.1.05.c:209)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x48ADFD3: (below main) (libc-start.c:137)
-==256605== 
-==256605== 
-==256605== 1 errors in context 2 of 16:
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x491AE0D: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:783)
-==256605==    by 0x490391D: __vfprintf_internal (vfprintf-internal.c:1688)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x10985B: DumpHex (myapp-c11-0.1.05.c:144)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x48ADFD3: (below main) (libc-start.c:137)
-==256605== 
-==256605== 
-==256605== 2 errors in context 3 of 16:
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x490171E: __vfprintf_internal (vfprintf-internal.c:1687)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x10971F: DumpHex (myapp-c11-0.1.05.c:104)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== 
-==256605== 2 errors in context 4 of 16:
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x4902258: __vfprintf_internal (vfprintf-internal.c:1687)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x10971F: DumpHex (myapp-c11-0.1.05.c:104)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== 
-==256605== 8 errors in context 5 of 16:
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x490171E: __vfprintf_internal (vfprintf-internal.c:1687)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x10966D: DumpHex (myapp-c11-0.1.05.c:87)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== 
-==256605== 8 errors in context 6 of 16:
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x4902258: __vfprintf_internal (vfprintf-internal.c:1687)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x10966D: DumpHex (myapp-c11-0.1.05.c:87)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== 
-==256605== 18 errors in context 7 of 16:
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x490171E: __vfprintf_internal (vfprintf-internal.c:1687)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x1096EE: DumpHex (myapp-c11-0.1.05.c:103)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== 
-==256605== 18 errors in context 8 of 16:
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x4902258: __vfprintf_internal (vfprintf-internal.c:1687)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x1096EE: DumpHex (myapp-c11-0.1.05.c:103)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== 
-==256605== 22 errors in context 9 of 16:
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x109830: DumpHex (myapp-c11-0.1.05.c:136)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== 
-==256605== 27 errors in context 10 of 16:
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x109817: DumpHex (myapp-c11-0.1.05.c:131)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== 
-==256605== 28 errors in context 11 of 16:
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x109811: DumpHex (myapp-c11-0.1.05.c:130)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== 
-==256605== 28 errors in context 12 of 16:
-==256605== Use of uninitialised value of size 8
-==256605==    at 0x109800: DumpHex (myapp-c11-0.1.05.c:129)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== 
-==256605== 28 errors in context 13 of 16:
-==256605== Use of uninitialised value of size 8
-==256605==    at 0x1097DF: DumpHex (myapp-c11-0.1.05.c:128)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== 
-==256605== 28 errors in context 14 of 16:
-==256605== Use of uninitialised value of size 8
-==256605==    at 0x1097BE: DumpHex (myapp-c11-0.1.05.c:127)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== 
-==256605== 33 errors in context 15 of 16:
-==256605== Conditional jump or move depends on uninitialised value(s)
-==256605==    at 0x48E567C: _itoa_word (_itoa.c:180)
-==256605==    by 0x49015A4: __vfprintf_internal (vfprintf-internal.c:1687)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x1096EE: DumpHex (myapp-c11-0.1.05.c:103)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== 
-==256605== 33 errors in context 16 of 16:
-==256605== Use of uninitialised value of size 8
-==256605==    at 0x48E566A: _itoa_word (_itoa.c:180)
-==256605==    by 0x49015A4: __vfprintf_internal (vfprintf-internal.c:1687)
-==256605==    by 0x1092FF: xlog_core (myapp-c11-0.1.05.c:20)
-==256605==    by 0x10940B: xlog_info_hex (myapp-c11-0.1.05.c:34)
-==256605==    by 0x1096EE: DumpHex (myapp-c11-0.1.05.c:103)
-==256605==    by 0x109AC4: main (myapp-c11-0.1.05.c:238)
-==256605==  Uninitialised value was created by a stack allocation
-==256605==    at 0x1099E0: main (myapp-c11-0.1.05.c:208)
-==256605== 
-==256605== ERROR SUMMARY: 285 errors from 16 contexts (suppressed: 0 from 0)
-xadmin@hw:~/xwks.git.1/xapp-c11$
-
-#endif

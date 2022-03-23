@@ -281,6 +281,7 @@ int main(int argc, char *argv[])
   pthread_mutex_destroy(&xlog_mutex);
 
   xlog_info("  >> the app exit.\n");
+  return 0;
 }
 
 // https://valgrind.org/docs/manual/manual.html
