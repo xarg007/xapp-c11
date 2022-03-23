@@ -212,10 +212,10 @@ int main(int argc, char* argv[])
 	pthread_mutex_init(&xlog_mutex, NULL);
 	
 	int iret = 0;
-	//typedef unsigned long int thrd_t;
-	//thrd_t thrd_this = thrd_current();
+
+	pthread_t thrd_this = pthread_self();
 	
-	//DumpHex((unsigned char*)&thrd_this, 16*5+10);
+	DumpHex((unsigned char*)&thrd_this, 16*5+10);
 	
 	struct s_ptrd_param_t param =
       {
@@ -275,6 +275,50 @@ int main(int argc, char* argv[])
 //https://valgrind.org/docs/manual/manual.html
 
 #if 0
+xadmin@hw:~/xwks.git.1/xapp-c11$ ./myapp
+  >> the app starting ... ...
+  >> main(1, 0x7ffcd7929658)
+  >> the app create new thread .
+
+0x007ffcd7929538|00 01 02 03 04 05 06 07  08 09 0A 0B 0C 0D 0E 0F|0123456789ABCDEF|
+      =============================================================================
+      0x00000000|00 b7 6b 96 69 7f 00 00  00 00 00 00 00 00 00 00|..k.i...........|
+      0x00000010|e0 c1 27 9f 67 55 00 00  11 00 00 00 22 00 00 00|..'.gU......"...|
+      0x00000020|00 17 d3 02 62 8b 97 05  00 00 00 00 00 00 00 00|....b...........|
+      0x00000030|b3 30 6e 96 69 7f 00 00  00 00 00 00 00 00 00 00|.0n.i...........|
+      0x00000040|58 96 92 d7 fc 7f 00 00  a0 77 8a 96 01 00 00 00|X........w......|
+      0x00000050|e0 c9 27 9f 67 55 00 00  00 cc ** ** ** ** ** **|..'.gU....******|
+      =============================================================================
+
+  >> the app create new thread ok.
+   >>> thread_func_tst(void * param=0x7ffcd7929550)
+      => struct s_ptrd_param_t p_param=0x7ffcd7929550
+      => {                     
+      =>      int i_test1=0x11;  
+      =>      int i_test2=0x22;  
+      => };                    
+
+0x007f69966bb700|00 01 02 03 04 05 06 07  08 09 0A 0B 0C 0D 0E 0F|0123456789ABCDEF|
+      =============================================================================
+      0x00000000|00 b7 6b 96 69 7f 00 00  c0 16 c3 a0 67 55 00 00|..k.i.......gU..|
+      0x00000010|00 b7 6b 96 69 7f 00 00  01 00 00 00 00 00 00 00|..k.i...........|
+      0x00000020|00 00 00 00 00 00 00 00  00 17 d3 02 62 8b 97 05|............b...|
+      0x00000030|7d 69 c5 bf c4 03 90 97  00 00 00 00 00 00 00 00|}i..............|
+      0x00000040|00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00|................|
+      0x00000050|00 00 00 00 00 00 00 00  00 00 ** ** ** ** ** **|..........******|
+      =============================================================================
+
+x   >>> thread_func_tst() exit.
+
+  >>> main() join thread ok.(0x0)
+      struct s_ptrd_param_t p_param=0x7ffcd7929550
+      {                     
+            int i_test1=0x9;  
+            int i_test2=0x8;  
+      };                    
+  >> the app exit.
+xadmin@hw:~/xwks.git.1/xapp-c11$ 
+
 xadmin@hw:~/xwks.git.1/xapp-c11$ valgrind --tool=memcheck --leak-check=full --track-origins=yes -s ./myapp
 ==256605== Memcheck, a memory error detector
 ==256605== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
