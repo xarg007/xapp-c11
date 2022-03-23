@@ -520,7 +520,7 @@ unsigned char* getDataFromFile(const char* pFileName, int* piFileLen)
 	printf("  >> func{%s:(%05d)} is call ,pFileName=\"%s\".\n", 
 				__func__, __LINE__, pFileName);
 
-	unsigned char* pElfData = NULL;
+	unsigned char* pData = NULL;
 
 	struct stat statbuf = {0};
 	stat(pFileName, &statbuf);
@@ -530,16 +530,16 @@ unsigned char* getDataFromFile(const char* pFileName, int* piFileLen)
 		FILE* hFile = fopen(pFileName, "rb");
 		if(hFile == NULL) {return NULL;}
 		*piFileLen = iLen;
-		pElfData = calloc(iLen, sizeof(unsigned char));
+		pData = calloc(iLen, sizeof(unsigned char));
 
-		size_t size_readok = fread(pElfData, 1, iLen, hFile);
+		size_t size_readok = fread(pData, 1, iLen, hFile);
 		fclose(hFile);
 		if(size_readok != iLen)
 		{
-			free(pElfData);
+			free(pData);
 			return NULL;
 		}
-		return pElfData;
+		return pData;
 	}
 
 	return NULL;
@@ -597,6 +597,7 @@ int main(int argc, char* argv[])
 			DumpHexA((unsigned char*)szTest, sizeof(szTest));
 			DumpHexB((unsigned char*)szTest, sizeof(szTest));
 		}
+		free(pHexData);
 	}while(0);
 	
 	xlog_info("  >> func:%s() is called. (@file:%s,line:%04d).\n", __func__, __FILE__, __LINE__);

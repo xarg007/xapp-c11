@@ -146,7 +146,7 @@ unsigned char* getHexDataFromFile(const char* pFileName, unsigned int* piFileLen
 			return NULL;
 		
 		*piFileLen = iLen;
-		pHexData = (unsigned char*)calloc(iLen, sizeof(unsigned char));
+		pHexData = (unsigned char*)calloc(iLen, sizeof(unsigned char)+8);
 		
 		size_t size_readok = fread(pHexData, 1, iLen, hFile);
 		fclose(hFile);
@@ -211,6 +211,7 @@ int main(int argc, char *argv[])
 			char szTest[] = "`   1234....\\0\0\0567890~!@#$%^&*()_+-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>?";
 			DumpHex((unsigned char*)szTest, sizeof(szTest));
 		}
+		free(pHexData);
 	}while(0);
 	
 	xlog_info("\n");
