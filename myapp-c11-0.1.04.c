@@ -249,6 +249,8 @@ int main(int argc, char* argv[])
 	
 	mtx_destroy(&xlog_mutex);
 	xlog_info("  >> the app exit.\n");
+
+  return 0;
 }
 
 //https://valgrind.org/docs/manual/manual.html
