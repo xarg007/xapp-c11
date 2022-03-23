@@ -503,3 +503,26 @@ exit_group(0)                           = ?
 xadmin@hw:~/xwks.git.1/xapp-c11$ 
 
 #endif
+
+#if 0  //valgrind test
+xadmin@hw:~/xwks.git.1/xapp-c11$ gcc -std=c11 -g -Wall -O0 myapp-c11-0.1.00.c -o myapp -lpthread
+xadmin@hw:~/xwks.git.1/xapp-c11$ valgrind --tool=memcheck --leak-check=full --track-origins=yes -s ./myapp
+==253148== Memcheck, a memory error detector
+==253148== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==253148== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==253148== Command: ./myapp
+==253148== 
+  >> the app starting ... ...
+   >>> do something ... ...
+  >> the app exit.
+==253148== 
+==253148== HEAP SUMMARY:
+==253148==     in use at exit: 0 bytes in 0 blocks
+==253148==   total heap usage: 1 allocs, 1 frees, 1,024 bytes allocated
+==253148== 
+==253148== All heap blocks were freed -- no leaks are possible
+==253148== 
+==253148== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+xadmin@hw:~/xwks.git.1/xapp-c11$ 
+
+#endif
