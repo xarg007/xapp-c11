@@ -10,519 +10,936 @@
 
 int main(int argc, char *argv[])
 {
-	printf("  >> the app starting ... ...\n");
+    printf("  >> the app starting ... ...\n");
 
-	do
-	{
-		/* code */
-		printf("   >>> do something ... ...\n");
-	} while (0);
+    do
+    {
+        /* code */
+        printf("   >>> do something ... ...\n");
+    } while (0);
 
-	printf("  >> the app exit.\n");
+    printf("  >> the app exit.\n");
 
-	return 0;
+    return 0;
 }
 
 #if 0
 
 #查看系统默认工具链
-xadmin@hw:~/ xwks.git.1 / xapp - c11$ type gcc
-gcc 已被录入哈希表(/ usr / bin / gcc)
-xadmin@hw : ~/ xwks.git.1 / xapp - c11$ ll / usr / bin / gcc
-lrwxrwxrwx 1 root root 5 3月  20  2020 / usr / bin / gcc->gcc - 9 *
-xadmin@hw : ~/ xwks.git.1 / xapp - c11$ ll / usr / bin / gcc - 9
-lrwxrwxrwx 1 root root 22 6月   1  2021 / usr / bin / gcc - 9->x86_64 - linux - gnu - gcc - 9 *
-xadmin@hw : ~/ xwks.git.1 / xapp - c11$ ll / usr / bin / x86_64 - linux - gnu - gcc - 9
-- rwxr - xr - x 1 root root 1158288 6月   1  2021 / usr / bin / x86_64 - linux - gnu - gcc - 9 *
-
-xadmin@hw : ~/ xwks.git.1 / xapp - c11$ type objdump
-objdump 已被录入哈希表(/ usr / bin / objdump)
-xadmin@hw : ~/ xwks.git.1 / xapp - c11$ ll / usr / bin / objdump
-lrwxrwxrwx 1 root root 24 10月 20 19 : 09 / usr / bin / objdump->x86_64 - linux - gnu - objdump *
-xadmin@hw:~/ xwks.git.1 / xapp - c11$ ll / usr / bin / x86_64 - linux - gnu
-x86_64 - linux - gnu - addr2line         x86_64 - linux - gnu - gcc - ranlib        x86_64 - linux - gnu - ld.gold           x86_64 - linux - gnux32 - gcc - ar
-x86_64 - linux - gnu - ar                x86_64 - linux - gnu - gcc - ranlib - 10     x86_64 - linux - gnu - lto - dump - 10       x86_64 - linux - gnux32 - gcc - ar - 9
-x86_64 - linux - gnu - as                x86_64 - linux - gnu - gcc - ranlib - 8      x86_64 - linux - gnu - nm                x86_64 - linux - gnux32 - gcc - nm
-x86_64 - linux - gnu - c++filt           x86_64 - linux - gnu - gcc - ranlib - 9      x86_64 - linux - gnu - objcopy           x86_64 - linux - gnux32 - gcc - nm - 9
-x86_64 - linux - gnu - cpp               x86_64 - linux - gnu - gcov              x86_64 - linux - gnu - objdump           x86_64 - linux - gnux32 - gcc - ranlib
-x86_64 - linux - gnu - cpp - 10            x86_64 - linux - gnu - gcov - 10           x86_64 - linux - gnu - pkg - config        x86_64 - linux - gnux32 - gcc - ranlib - 9
-x86_64 - linux - gnu - cpp - 8             x86_64 - linux - gnu - gcov - 8            x86_64 - linux - gnu - python3.8 - config  x86_64 - linux - gnux32 - gcov
-x86_64 - linux - gnu - cpp - 9             x86_64 - linux - gnu - gcov - 9            x86_64 - linux - gnu - python3 - config    x86_64 - linux - gnux32 - gcov - 9
-x86_64 - linux - gnu - dwp               x86_64 - linux - gnu - gcov - dump         x86_64 - linux - gnu - ranlib            x86_64 - linux - gnux32 - gcov - dump
-x86_64 - linux - gnu - elfedit           x86_64 - linux - gnu - gcov - dump - 10      x86_64 - linux - gnu - readelf           x86_64 - linux - gnux32 - gcov - dump - 9
-x86_64 - linux - gnu - g++               x86_64 - linux - gnu - gcov - dump - 8       x86_64 - linux - gnu - size              x86_64 - linux - gnux32 - gcov - tool
-x86_64 - linux - gnu - g++ - 10            x86_64 - linux - gnu - gcov - dump - 9       x86_64 - linux - gnu - strings           x86_64 - linux - gnux32 - gcov - tool - 9
-x86_64 - linux - gnu - g++ - 9             x86_64 - linux - gnu - gcov - tool         x86_64 - linux - gnu - strip             x86_64 - linux - gnux32 - gprof
-x86_64 - linux - gnu - gcc               x86_64 - linux - gnu - gcov - tool - 10      x86_64 - linux - gnux32 - addr2line      x86_64 - linux - gnux32 - ld
-x86_64 - linux - gnu - gcc - 10            x86_64 - linux - gnu - gcov - tool - 8       x86_64 - linux - gnux32 - ar             x86_64 - linux - gnux32 - ld.bfd
-x86_64 - linux - gnu - gcc - 8             x86_64 - linux - gnu - gcov - tool - 9       x86_64 - linux - gnux32 - as             x86_64 - linux - gnux32 - ld.gold
-x86_64 - linux - gnu - gcc - 9             x86_64 - linux - gnu - gdc               x86_64 - linux - gnux32 - c++filt        x86_64 - linux - gnux32 - nm
-x86_64 - linux - gnu - gcc - ar            x86_64 - linux - gnu - gdc - 10            x86_64 - linux - gnux32 - cpp            x86_64 - linux - gnux32 - objcopy
-x86_64 - linux - gnu - gcc - ar - 10         x86_64 - linux - gnu - gfortran          x86_64 - linux - gnux32 - cpp - 9          x86_64 - linux - gnux32 - objdump
-x86_64 - linux - gnu - gcc - ar - 8          x86_64 - linux - gnu - gfortran - 8        x86_64 - linux - gnux32 - dwp            x86_64 - linux - gnux32 - ranlib
-x86_64 - linux - gnu - gcc - ar - 9          x86_64 - linux - gnu - gfortran - 9        x86_64 - linux - gnux32 - elfedit        x86_64 - linux - gnux32 - readelf
-x86_64 - linux - gnu - gcc - nm            x86_64 - linux - gnu - gold              x86_64 - linux - gnux32 - g++            x86_64 - linux - gnux32 - size
-x86_64 - linux - gnu - gcc - nm - 10         x86_64 - linux - gnu - gprof             x86_64 - linux - gnux32 - g++ - 9          x86_64 - linux - gnux32 - strings
-x86_64 - linux - gnu - gcc - nm - 8          x86_64 - linux - gnu - ld                x86_64 - linux - gnux32 - gcc            x86_64 - linux - gnux32 - strip
-x86_64 - linux - gnu - gcc - nm - 9          x86_64 - linux - gnu - ld.bfd            x86_64 - linux - gnux32 - gcc - 9
-xadmin@hw:~/ xwks.git.1 / xapp - c11$
-
-#生成可执行文件
-xadmin@hw:~/ xwks.git.1 / xapp - c11$ gcc - v - std = c11 - g - Wall - O0 xapp - c11 - 0.1.00.c - o myapp
-Using built - in specs.
-COLLECT_GCC = gcc
-COLLECT_LTO_WRAPPER = / usr / lib / gcc / x86_64 - linux - gnu / 9 / lto - wrapper
-OFFLOAD_TARGET_NAMES = nvptx - none : hsa
-OFFLOAD_TARGET_DEFAULT = 1
-Target : x86_64 - linux - gnu
-Configured with : .. / src / configure - v --with - pkgversion = 'Ubuntu 9.4.0-1ubuntu1~20.04' --with - bugurl = file :///usr/share/doc/gcc-9/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-yTrUTS/gcc-9-9.4.0/debian/tmp-nvptx/usr,hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
-	Thread model : posix
-	gcc version 9.4.0 (Ubuntu 9.4.0 - 1ubuntu1~20.04)
-	COLLECT_GCC_OPTIONS = '-v' '-std=c11' '-g' '-Wall' '-O0' '-o' 'myapp' '-mtune=generic' '-march=x86-64'
-	/ usr / lib / gcc / x86_64 - linux - gnu / 9 / cc1 - quiet - v - imultiarch x86_64 - linux - gnu xapp - c11 - 0.1.00.c - quiet - dumpbase xapp - c11 - 0.1.00.c - mtune = generic - march = x86 - 64 - auxbase xapp - c11 - 0.1.00 - g - O0 - Wall - std = c11 - version - fasynchronous - unwind - tables - fstack - protector - strong - Wformat - security - fstack - clash - protection - fcf - protection - o / tmp / ccjZ3pko.s
-	GNU C11(Ubuntu 9.4.0 - 1ubuntu1~20.04) version 9.4.0 (x86_64 - linux - gnu)
-	compiled by GNU C version 9.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version isl - 0.22.1 - GMP
-
-	GGC heuristics : --param ggc - min - expand = 100 --param ggc - min - heapsize = 131072
-	ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"
-	ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed"
-	ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/9/../../../../x86_64-linux-gnu/include"
-#include "..." search starts here:
-#include <...> search starts here:
-	/ usr / lib / gcc / x86_64 - linux - gnu / 9 / include
-	/ usr / local / include
-	/ usr / include / x86_64 - linux - gnu
-	/ usr / include
-	End of search list.
-	GNU C11(Ubuntu 9.4.0 - 1ubuntu1~20.04) version 9.4.0 (x86_64 - linux - gnu)
-	compiled by GNU C version 9.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version isl - 0.22.1 - GMP
-
-	GGC heuristics : --param ggc - min - expand = 100 --param ggc - min - heapsize = 131072
-	Compiler executable checksum : 0fa2a01b1ef16377fce6a0bcb60fb82d
-	COLLECT_GCC_OPTIONS = '-v' '-std=c11' '-g' '-Wall' '-O0' '-o' 'myapp' '-mtune=generic' '-march=x86-64'
-	as - v--64 - o / tmp / ccWW6o0q.o / tmp / ccjZ3pko.s
-	GNU汇编版本 2.34 (x86_64 - linux - gnu) 使用BFD版本(GNU Binutils for Ubuntu) 2.34
-	COMPILER_PATH = / usr / lib / gcc / x86_64 - linux - gnu / 9 / : / usr / lib / gcc / x86_64 - linux - gnu / 9 / : / usr / lib / gcc / x86_64 - linux - gnu / : / usr / lib / gcc / x86_64 - linux - gnu / 9 / : / usr / lib / gcc / x86_64 - linux - gnu /
-	LIBRARY_PATH = / usr / lib / gcc / x86_64 - linux - gnu / 9 / : / usr / lib / gcc / x86_64 - linux - gnu / 9 / .. / .. / .. / x86_64 - linux - gnu / : / usr / lib / gcc / x86_64 - linux - gnu / 9 / .. / .. / .. / .. / lib / : / lib / x86_64 - linux - gnu / : / lib / .. / lib / : / usr / lib / x86_64 - linux - gnu / : / usr / lib / .. / lib / : / usr / lib / gcc / x86_64 - linux - gnu / 9 / .. / .. / .. / : / lib / : / usr / lib /
-	COLLECT_GCC_OPTIONS = '-v' '-std=c11' '-g' '-Wall' '-O0' '-o' 'myapp' '-mtune=generic' '-march=x86-64'
-	/ usr / lib / gcc / x86_64 - linux - gnu / 9 / collect2 - plugin / usr / lib / gcc / x86_64 - linux - gnu / 9 / liblto_plugin.so - plugin - opt = / usr / lib / gcc / x86_64 - linux - gnu / 9 / lto - wrapper - plugin - opt = -fresolution = / tmp / ccj27fHp.res - plugin - opt = -pass - through = -lgcc - plugin - opt = -pass - through = -lgcc_s - plugin - opt = -pass - through = -lc - plugin - opt = -pass - through = -lgcc - plugin - opt = -pass - through = -lgcc_s --build - id --eh - frame - hdr - m elf_x86_64 --hash - style = gnu --as - needed - dynamic - linker / lib64 / ld - linux - x86 - 64.so.2 - pie - z now - z relro - o myapp / usr / lib / gcc / x86_64 - linux - gnu / 9 / .. / .. / .. / x86_64 - linux - gnu / Scrt1.o / usr / lib / gcc / x86_64 - linux - gnu / 9 / .. / .. / .. / x86_64 - linux - gnu / crti.o / usr / lib / gcc / x86_64 - linux - gnu / 9 / crtbeginS.o - L / usr / lib / gcc / x86_64 - linux - gnu / 9 - L / usr / lib / gcc / x86_64 - linux - gnu / 9 / .. / .. / .. / x86_64 - linux - gnu - L / usr / lib / gcc / x86_64 - linux - gnu / 9 / .. / .. / .. / .. / lib - L / lib / x86_64 - linux - gnu - L / lib / .. / lib - L / usr / lib / x86_64 - linux - gnu - L / usr / lib / .. / lib - L / usr / lib / gcc / x86_64 - linux - gnu / 9 / .. / .. / .. / tmp / ccWW6o0q.o - lgcc --push - state --as - needed - lgcc_s --pop - state - lc - lgcc --push - state --as - needed - lgcc_s --pop - state / usr / lib / gcc / x86_64 - linux - gnu / 9 / crtendS.o / usr / lib / gcc / x86_64 - linux - gnu / 9 / .. / .. / .. / x86_64 - linux - gnu / crtn.o
-	COLLECT_GCC_OPTIONS = '-v' '-std=c11' '-g' '-Wall' '-O0' '-o' 'myapp' '-mtune=generic' '-march=x86-64'
-	xadmin@hw : ~/ xwks.git.1 / xapp - c11$
-
-#执行程序
-	xadmin@hw:~/ xwks.git.1 / xapp - c11$ . / myapp
-	>> the app starting ... ...
-	>> > do something ... ...
-	>> the app exit.
-	xadmin@hw:~/ xwks.git.1 / xapp - c11$
-
-#确认文件类型
-	xadmin@hw:~/ xwks.git.1 / xapp - c11$ file xapp - c11 - 0.1.00.c myapp
-	xapp - c11 - 0.1.00.c : C source, ASCII text
-	myapp : ELF 64 - bit LSB shared object, x86 - 64, version 1 (SYSV), dynamically linked, interpreter / lib64 / ld - linux - x86 - 64.so.2, BuildID[sha1] = 2dcac66781e880d102663e64f697e54a1b5ad164, for GNU / Linux 3.2.0, with debug_info, not stripped
-	xadmin@hw : ~/ xwks.git.1 / xapp - c11$
-
-#查看可执行文件依赖的动态链接库
-	xadmin@hw:~/ xwks.git.1 / xapp - c11$ ldd myapp
-	linux - vdso.so.1 (0x00007ffd47726000)
-	libc.so.6 = > / lib / x86_64 - linux - gnu / libc.so.6 (0x00007fa05b48c000)
-	/ lib64 / ld - linux - x86 - 64.so.2 (0x00007fa05b6a2000)
-
-#== == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == =
-	xadmin@hw:~/ xwks.git.1 / xapp - c11$ ll / lib64 / ld - linux - x86 - 64.so.2
-	lrwxrwxrwx 1 root root 32 2月  25 03 : 42 / lib64 / ld - linux - x86 - 64.so.2 -> / lib / x86_64 - linux - gnu / ld - 2.31.so *
-	xadmin@hw : ~/ xwks.git.1 / xapp - c11$ ll / lib / x86_64 - linux - gnu / ld - 2.31.so
-	- rwxr - xr - x 1 root root 191472 2月  25 03 : 42 / lib / x86_64 - linux - gnu / ld - 2.31.so *
-	xadmin@hw : ~/ xwks.git.1 / xapp - c11$ file / lib / x86_64 - linux - gnu / ld - 2.31.so
-	/ lib / x86_64 - linux - gnu / ld - 2.31.so : ELF 64 - bit LSB shared object, x86 - 64, version 1 (SYSV), dynamically linked, BuildID[sha1] = 39bd4a6852f6b9962ad57117d11b6f130d32f7fd, stripped
-
-#== == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == =
-	xadmin@hw : ~/ xwks.git.1 / xapp - c11$ ll / lib / x86_64 - linux - gnu / libc.so.6
-	lrwxrwxrwx 1 root root 12 2月  25 03 : 42 / lib / x86_64 - linux - gnu / libc.so.6->libc - 2.31.so *
-	xadmin@hw : ~/ xwks.git.1 / xapp - c11$ ll / lib / x86_64 - linux - gnu / libc - 2.31.so
-	- rwxr - xr - x 1 root root 2029560 2月  25 03 : 42 / lib / x86_64 - linux - gnu / libc - 2.31.so *
-	xadmin@hw : ~/ xwks.git.1 / xapp - c11$ file / lib / x86_64 - linux - gnu / libc - 2.31.so
-	/ lib / x86_64 - linux - gnu / libc - 2.31.so : ELF 64 - bit LSB shared object, x86 - 64, version 1 (GNU / Linux), dynamically linked, interpreter / lib64 / ld - linux - x86 - 64.so.2, BuildID[sha1] = 9fdb74e7b217d06c93172a8243f8547f947ee6d1, for GNU / Linux 3.2.0, stripped
-	xadmin@hw : ~/ xwks.git.1 / xapp - c11$ ldd / lib / x86_64 - linux - gnu / libc - 2.31.so *
-	/ lib64 / ld - linux - x86 - 64.so.2 (0x00007f6e49c0e000)
-	linux - vdso.so.1 (0x00007fffc21a0000)
-	xadmin@hw : ~/ xwks.git.1 / xapp - c11$ ldd / lib64 / ld - linux - x86 - 64.so.2
-	statically linked
-#== == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == =
-
-#分析可执行文件ELF头信息
-	xadmin@hw:~/ xwks.git.1 / xapp - c11$ readelf - h myapp
-	ELF 头：
-	Magic：   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00
-	类别 : ELF64
-	数据 : 2 补码，小端序(little endian)
-	Version : 1 (current)
-	OS / ABI : UNIX - System V
-	ABI 版本 : 0
-	类型 : DYN(共享目标文件)
-	系统架构 : Advanced Micro Devices X86 - 64
-	版本 : 0x1
-	入口点地址：               0x1060
-	程序头起点：          64 (bytes into file)
-	Start of section headers : 16880 (bytes into file)
-	标志：             0x0
-	Size of this header : 64 (bytes)
-	Size of program headers : 56 (bytes)
-	Number of program headers : 13
-	Size of section headers : 64 (bytes)
-	Number of section headers : 36
-	Section header string table index : 35
-	xadmin@hw : ~/ xwks.git.1 / xapp - c11$
-
-#查看可执行文件的反汇编
-	xadmin@hw:~/ xwks.git.1 / xapp - c11$ objdump - d - Mintel myapp
-
-	myapp：     文件格式 elf64 - x86 - 64
-
-	Disassembly of section.init :
-
-	0000000000001000 < _init > :
-	1000 : f3 0f 1e fa             endbr64
-	1004 : 48 83 ec 08             sub    rsp, 0x8
-	1008:       48 8b 05 d9 2f 00 00    mov    rax, QWORD PTR[rip + 0x2fd9]        # 3fe8 < __gmon_start__>
-	100f:       48 85 c0                test   rax, rax
-	1012 : 74 02                   je     1016 < _init + 0x16 >
-	1014 : ff d0                   call   rax
-	1016 : 48 83 c4 08             add    rsp, 0x8
-	101a:       c3                      ret
-
-	Disassembly of section.plt :
-
-	0000000000001020 < .plt > :
-	1020 : ff 35 9a 2f 00 00       push   QWORD PTR[rip + 0x2f9a]        # 3fc0 < _GLOBAL_OFFSET_TABLE_ + 0x8>
-	1026:       f2 ff 25 9b 2f 00 00    bnd jmp QWORD PTR[rip + 0x2f9b]        # 3fc8 < _GLOBAL_OFFSET_TABLE_ + 0x10>
-	102d:       0f 1f 00                nop    DWORD PTR[rax]
-	1030 : f3 0f 1e fa             endbr64
-	1034 : 68 00 00 00 00          push   0x0
-	1039 : f2 e9 e1 ff ff ff       bnd jmp 1020 < .plt >
-	103f : 90                      nop
-
-	Disassembly of section.plt.got :
-
-	0000000000001040 < __cxa_finalize@plt > :
-	1040 : f3 0f 1e fa             endbr64
-	1044 : f2 ff 25 ad 2f 00 00    bnd jmp QWORD PTR[rip + 0x2fad]        # 3ff8 < __cxa_finalize@GLIBC_2.2.5>
-	104b:       0f 1f 44 00 00          nop    DWORD PTR[rax + rax * 1 + 0x0]
-
-	Disassembly of section.plt.sec :
-
-	0000000000001050 < puts@plt > :
-	1050 : f3 0f 1e fa             endbr64
-	1054 : f2 ff 25 75 2f 00 00    bnd jmp QWORD PTR[rip + 0x2f75]        # 3fd0 < puts@GLIBC_2.2.5>
-	105b:       0f 1f 44 00 00          nop    DWORD PTR[rax + rax * 1 + 0x0]
-
-	Disassembly of section.text :
-
-	0000000000001060 < _start > :
-	1060 : f3 0f 1e fa             endbr64
-	1064 : 31 ed xor ebp, ebp
-	1066 : 49 89 d1                mov    r9, rdx
-	1069 : 5e                      pop    rsi
-	106a : 48 89 e2                mov    rdx, rsp
-	106d : 48 83 e4 f0 and rsp, 0xfffffffffffffff0
-	1071 : 50                      push   rax
-	1072 : 54                      push   rsp
-	1073 : 4c 8d 05 86 01 00 00    lea    r8, [rip + 0x186]        # 1200 < __libc_csu_fini >
-	107a:       48 8d 0d 0f 01 00 00    lea    rcx, [rip + 0x10f]        # 1190 < __libc_csu_init >
-	1081:       48 8d 3d c1 00 00 00    lea    rdi, [rip + 0xc1]        # 1149 < main >
-	1088:       ff 15 52 2f 00 00       call   QWORD PTR[rip + 0x2f52]        # 3fe0 < __libc_start_main@GLIBC_2.2.5>
-	108e:       f4                      hlt
-	108f : 90                      nop
-
-	0000000000001090 <deregister_tm_clones> :
-	1090 : 48 8d 3d 79 2f 00 00    lea    rdi, [rip + 0x2f79]        # 4010 < __TMC_END__ >
-	1097:       48 8d 05 72 2f 00 00    lea    rax, [rip + 0x2f72]        # 4010 < __TMC_END__ >
-	109e:       48 39 f8                cmp    rax, rdi
-	10a1 : 74 15                   je     10b8 < deregister_tm_clones + 0x28>
-	10a3 : 48 8b 05 2e 2f 00 00    mov    rax, QWORD PTR[rip + 0x2f2e]        # 3fd8 < _ITM_deregisterTMCloneTable>
-	10aa:       48 85 c0                test   rax, rax
-	10ad : 74 09                   je     10b8 < deregister_tm_clones + 0x28>
-	10af:       ff e0                   jmp    rax
-	10b1 : 0f 1f 80 00 00 00 00    nop    DWORD PTR[rax + 0x0]
-	10b8 : c3                      ret
-	10b9 : 0f 1f 80 00 00 00 00    nop    DWORD PTR[rax + 0x0]
-
-	00000000000010c0 <register_tm_clones> :
-	10c0 : 48 8d 3d 49 2f 00 00    lea    rdi, [rip + 0x2f49]        # 4010 < __TMC_END__ >
-	10c7:       48 8d 35 42 2f 00 00    lea    rsi, [rip + 0x2f42]        # 4010 < __TMC_END__ >
-	10ce:       48 29 fe                sub    rsi, rdi
-	10d1 : 48 89 f0                mov    rax, rsi
-	10d4 : 48 c1 ee 3f             shr    rsi, 0x3f
-	10d8 : 48 c1 f8 03             sar    rax, 0x3
-	10dc : 48 01 c6                add    rsi, rax
-	10df : 48 d1 fe                sar    rsi, 1
-	10e2 : 74 14                   je     10f8 < register_tm_clones + 0x38>
-	10e4 : 48 8b 05 05 2f 00 00    mov    rax, QWORD PTR[rip + 0x2f05]        # 3ff0 < _ITM_registerTMCloneTable>
-	10eb:       48 85 c0                test   rax, rax
-	10ee : 74 08                   je     10f8 < register_tm_clones + 0x38>
-	10f0:       ff e0                   jmp    rax
-	10f2 : 66 0f 1f 44 00 00       nop    WORD PTR[rax + rax * 1 + 0x0]
-	10f8 : c3                      ret
-	10f9 : 0f 1f 80 00 00 00 00    nop    DWORD PTR[rax + 0x0]
-
-	0000000000001100 < __do_global_dtors_aux > :
-	1100 : f3 0f 1e fa             endbr64
-	1104 : 80 3d 05 2f 00 00 00    cmp    BYTE PTR[rip + 0x2f05], 0x0        # 4010 < __TMC_END__ >
-	110b:       75 2b                   jne    1138 < __do_global_dtors_aux + 0x38 >
-	110d : 55                      push   rbp
-	110e : 48 83 3d e2 2e 00 00    cmp    QWORD PTR[rip + 0x2ee2], 0x0        # 3ff8 < __cxa_finalize@GLIBC_2.2.5>
-	1115:       00
-	1116 : 48 89 e5                mov    rbp, rsp
-	1119 : 74 0c                   je     1127 < __do_global_dtors_aux + 0x27 >
-	111b : 48 8b 3d e6 2e 00 00    mov    rdi, QWORD PTR[rip + 0x2ee6]        # 4008 < __dso_handle >
-	1122:       e8 19 ff ff ff          call   1040 < __cxa_finalize@plt >
-	1127 : e8 64 ff ff ff          call   1090 < deregister_tm_clones >
-	112c : c6 05 dd 2e 00 00 01    mov    BYTE PTR[rip + 0x2edd], 0x1        # 4010 < __TMC_END__ >
-	1133:       5d                      pop    rbp
-	1134 : c3                      ret
-	1135 : 0f 1f 00                nop    DWORD PTR[rax]
-	1138 : c3                      ret
-	1139 : 0f 1f 80 00 00 00 00    nop    DWORD PTR[rax + 0x0]
-
-	0000000000001140 < frame_dummy > :
-	1140 : f3 0f 1e fa             endbr64
-	1144 : e9 77 ff ff ff          jmp    10c0 <register_tm_clones>
-
-	0000000000001149 <main> :
-	1149 : f3 0f 1e fa             endbr64
-	114d : 55                      push   rbp
-	114e : 48 89 e5                mov    rbp, rsp
-	1151 : 48 83 ec 10             sub    rsp, 0x10
-	1155 : 89 7d fc                mov    DWORD PTR[rbp - 0x4], edi
-	1158 : 48 89 75 f0             mov    QWORD PTR[rbp - 0x10], rsi
-	115c : 48 8d 3d a1 0e 00 00    lea    rdi, [rip + 0xea1]        # 2004 < _IO_stdin_used + 0x4 >
-	1163:       e8 e8 fe ff ff          call   1050 < puts@plt >
-	1168 : 48 8d 3d b3 0e 00 00    lea    rdi, [rip + 0xeb3]        # 2022 < _IO_stdin_used + 0x22 >
-	116f:       e8 dc fe ff ff          call   1050 < puts@plt >
-	1174 : 48 8d 3d c3 0e 00 00    lea    rdi, [rip + 0xec3]        # 203e < _IO_stdin_used + 0x3e>
-	117b:       e8 d0 fe ff ff          call   1050 < puts@plt >
-	1180 : b8 00 00 00 00          mov    eax, 0x0
-	1185 : c9                      leave
-	1186 : c3                      ret
-	1187 : 66 0f 1f 84 00 00 00    nop    WORD PTR[rax + rax * 1 + 0x0]
-	118e : 00 00
-
-	0000000000001190 <__libc_csu_init> :
-	1190 : f3 0f 1e fa             endbr64
-	1194 : 41 57                   push   r15
-	1196 : 4c 8d 3d 1b 2c 00 00    lea    r15, [rip + 0x2c1b]        # 3db8 < __frame_dummy_init_array_entry>
-	119d:       41 56                   push   r14
-	119f : 49 89 d6                mov    r14, rdx
-	11a2 : 41 55                   push   r13
-	11a4 : 49 89 f5                mov    r13, rsi
-	11a7 : 41 54                   push   r12
-	11a9 : 41 89 fc                mov    r12d, edi
-	11ac : 55                      push   rbp
-	11ad : 48 8d 2d 0c 2c 00 00    lea    rbp, [rip + 0x2c0c]        # 3dc0 < __do_global_dtors_aux_fini_array_entry>
-	11b4:       53                      push   rbx
-	11b5 : 4c 29 fd                sub    rbp, r15
-	11b8 : 48 83 ec 08             sub    rsp, 0x8
-	11bc:       e8 3f fe ff ff          call   1000 < _init >
-	11c1 : 48 c1 fd 03             sar    rbp, 0x3
-	11c5 : 74 1f                   je     11e6 < __libc_csu_init + 0x56 >
-	11c7 : 31 db xor ebx, ebx
-	11c9 : 0f 1f 80 00 00 00 00    nop    DWORD PTR[rax + 0x0]
-	11d0 : 4c 89 f2                mov    rdx, r14
-	11d3 : 4c 89 ee                mov    rsi, r13
-	11d6 : 44 89 e7                mov    edi, r12d
-	11d9 : 41 ff 14 df             call   QWORD PTR[r15 + rbx * 8]
-	11dd : 48 83 c3 01             add    rbx, 0x1
-	11e1 : 48 39 dd                cmp    rbp, rbx
-	11e4 : 75 ea                   jne    11d0 < __libc_csu_init + 0x40>
-	11e6 : 48 83 c4 08             add    rsp, 0x8
-	11ea:       5b                      pop    rbx
-	11eb : 5d                      pop    rbp
-	11ec : 41 5c                   pop    r12
-	11ee : 41 5d                   pop    r13
-	11f0 : 41 5e                   pop    r14
-	11f2 : 41 5f                   pop    r15
-	11f4 : c3                      ret
-	11f5 : 66 66 2e 0f 1f 84 00    data16 nop WORD PTR cs : [rax + rax * 1 + 0x0]
-	11fc : 00 00 00 00
-
-	0000000000001200 < __libc_csu_fini > :
-	1200 : f3 0f 1e fa             endbr64
-	1204 : c3                      ret
-
-	Disassembly of section.fini :
-
-	0000000000001208 <_fini> :
-	1208 : f3 0f 1e fa             endbr64
-	120c : 48 83 ec 08             sub    rsp, 0x8
-	1210:       48 83 c4 08             add    rsp, 0x8
-	1214:       c3                      ret
-	xadmin@hw : ~/ xwks.git.1 / xapp - c11$
-	//xadmin@hw:~/xwks.git.1/xapp-c11$ hexdump -C myapp
-	//00000000  7f 45 4c 46 02 01 01 00  00 00 00 00 00 00 00 00  |.ELF............|
-	//00000010  03 00 3e 00 01 00 00 00  60 10 00 00 00 00 00 00  |..>.....`.......|
-	//00000020  40 00 00 00 00 00 00 00  f0 41 00 00 00 00 00 00  |@........A......|
-	//00000030  00 00 00 00 40 00 38 00  0d 00 40 00 24 00 23 00  |....@.8...@.$.#.|
-	//00000040  06 00 00 00 04 00 00 00  40 00 00 00 00 00 00 00  |........@.......|
-	//00000050  40 00 00 00 00 00 00 00  40 00 00 00 00 00 00 00  |@.......@.......|
-	//00000060  d8 02 00 00 00 00 00 00  d8 02 00 00 00 00 00 00  |................|
-	//00000070  08 00 00 00 00 00 00 00  03 00 00 00 04 00 00 00  |................|
-	//00000080  18 03 00 00 00 00 00 00  18 03 00 00 00 00 00 00  |................|
-	//00000090  18 03 00 00 00 00 00 00  1c 00 00 00 00 00 00 00  |................|
-	//000000a0  1c 00 00 00 00 00 00 00  01 00 00 00 00 00 00 00  |................|
-	//000000b0  01 00 00 00 04 00 00 00  00 00 00 00 00 00 00 00  |................|
-	//000000c0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
-	//000000d0  f8 05 00 00 00 00 00 00  f8 05 00 00 00 00 00 00  |................|
-	//000000e0  00 10 00 00 00 00 00 00  01 00 00 00 05 00 00 00  |................|
-	//000000f0  00 10 00 00 00 00 00 00  00 10 00 00 00 00 00 00  |................|
-	//00000100  00 10 00 00 00 00 00 00  15 02 00 00 00 00 00 00  |................|
-	//00000110  15 02 00 00 00 00 00 00  00 10 00 00 00 00 00 00  |................|
-	//00000120  01 00 00 00 04 00 00 00  00 20 00 00 00 00 00 00  |......... ......|
-	//00000130  00 20 00 00 00 00 00 00  00 20 00 00 00 00 00 00  |. ....... ......|
-	//00000140  a0 01 00 00 00 00 00 00  a0 01 00 00 00 00 00 00  |................|
-	//00000150  00 10 00 00 00 00 00 00  01 00 00 00 06 00 00 00  |................|
-	//00000160  b8 2d 00 00 00 00 00 00  b8 3d 00 00 00 00 00 00  |.-.......=......|
-	//00000170  b8 3d 00 00 00 00 00 00  58 02 00 00 00 00 00 00  |.=......X.......|
-	//00000180  60 02 00 00 00 00 00 00  00 10 00 00 00 00 00 00  |`...............|
-	//00000190  02 00 00 00 06 00 00 00  c8 2d 00 00 00 00 00 00  |.........-......|
-	//000001a0  c8 3d 00 00 00 00 00 00  c8 3d 00 00 00 00 00 00  |.=.......=......|
-	//000001b0  f0 01 00 00 00 00 00 00  f0 01 00 00 00 00 00 00  |................|
-	//000001c0  08 00 00 00 00 00 00 00  04 00 00 00 04 00 00 00  |................|
-	//000001d0  38 03 00 00 00 00 00 00  38 03 00 00 00 00 00 00  |8.......8.......|
-	//000001e0  38 03 00 00 00 00 00 00  20 00 00 00 00 00 00 00  |8....... .......|
-	//000001f0  20 00 00 00 00 00 00 00  08 00 00 00 00 00 00 00  | ...............|
-	//00000200  04 00 00 00 04 00 00 00  58 03 00 00 00 00 00 00  |........X.......|
-	//00000210  58 03 00 00 00 00 00 00  58 03 00 00 00 00 00 00  |X.......X.......|
-	//00000220  44 00 00 00 00 00 00 00  44 00 00 00 00 00 00 00  |D.......D.......|
-	//00000230  04 00 00 00 00 00 00 00  53 e5 74 64 04 00 00 00  |........S.td....|
-	//00000240  38 03 00 00 00 00 00 00  38 03 00 00 00 00 00 00  |8.......8.......|
-	//00000250  38 03 00 00 00 00 00 00  20 00 00 00 00 00 00 00  |8....... .......|
-	//00000260  20 00 00 00 00 00 00 00  08 00 00 00 00 00 00 00  | ...............|
-	//00000270  50 e5 74 64 04 00 00 00  54 20 00 00 00 00 00 00  |P.td....T ......|
-	//00000280  54 20 00 00 00 00 00 00  54 20 00 00 00 00 00 00  |T ......T ......|
-	//00000290  44 00 00 00 00 00 00 00  44 00 00 00 00 00 00 00  |D.......D.......|
-	//000002a0  04 00 00 00 00 00 00 00  51 e5 74 64 06 00 00 00  |........Q.td....|
-	//000002b0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
-	//... ...
-	//... ...
-	//000002d0  00 00 00 00 00 00 00 00  10 00 00 00 00 00 00 00  |................|
-	//000002e0  52 e5 74 64 04 00 00 00  b8 2d 00 00 00 00 00 00  |R.td.....-......|
-	//000002f0  b8 3d 00 00 00 00 00 00  b8 3d 00 00 00 00 00 00  |.=.......=......|
-	//00000300  48 02 00 00 00 00 00 00  48 02 00 00 00 00 00 00  |H.......H.......|
-	//00000310  01 00 00 00 00 00 00 00  2f 6c 69 62 36 34 2f 6c  |......../lib64/l|
-	//00000320  64 2d 6c 69 6e 75 78 2d  78 38 36 2d 36 34 2e 73  |d-linux-x86-64.s|
-	//00000330  6f 2e 32 00 00 00 00 00  04 00 00 00 10 00 00 00  |o.2.............|
-	//00000340  05 00 00 00 47 4e 55 00  02 00 00 c0 04 00 00 00  |....GNU.........|
-	//00000350  03 00 00 00 00 00 00 00  04 00 00 00 14 00 00 00  |................|
-	//00000360  03 00 00 00 47 4e 55 00  93 c0 67 9a 20 fb 4b 8c  |....GNU...g. .K.|
-	//00000370  b7 74 4d f2 d3 6f ac 9c  bf ed 10 81 04 00 00 00  |.tM..o..........|
-	//00000380  10 00 00 00 01 00 00 00  47 4e 55 00 00 00 00 00  |........GNU.....|
-	//00000390  03 00 00 00 02 00 00 00  00 00 00 00 00 00 00 00  |................|
-	//000003a0  02 00 00 00 06 00 00 00  01 00 00 00 06 00 00 00  |................|
-	//000003b0  00 00 81 00 00 00 00 00  06 00 00 00 00 00 00 00  |................|
-	//000003c0  d1 65 ce 6d 00 00 00 00  00 00 00 00 00 00 00 00  |.e.m............|
-	//000003d0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
-	//000003e0  3d 00 00 00 20 00 00 00  00 00 00 00 00 00 00 00  |=... ...........|
-	//000003f0  00 00 00 00 00 00 00 00  0b 00 00 00 12 00 00 00  |................|
-	//00000400  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
-	//00000410  1f 00 00 00 12 00 00 00  00 00 00 00 00 00 00 00  |................|
-	//00000420  00 00 00 00 00 00 00 00  59 00 00 00 20 00 00 00  |........Y... ...|
-	//00000430  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
-	//00000440  68 00 00 00 20 00 00 00  00 00 00 00 00 00 00 00  |h... ...........|
-	//00000450  00 00 00 00 00 00 00 00  10 00 00 00 22 00 00 00  |............"...|
-	//00000460  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
-	//00000470  00 6c 69 62 63 2e 73 6f  2e 36 00 70 75 74 73 00  |.libc.so.6.puts.|
-	//00000480  5f 5f 63 78 61 5f 66 69  6e 61 6c 69 7a 65 00 5f  |__cxa_finalize._|
-	//00000490  5f 6c 69 62 63 5f 73 74  61 72 74 5f 6d 61 69 6e  |_libc_start_main|
-	//000004a0  00 47 4c 49 42 43 5f 32  2e 32 2e 35 00 5f 49 54  |.GLIBC_2.2.5._IT|
-	//000004b0  4d 5f 64 65 72 65 67 69  73 74 65 72 54 4d 43 6c  |M_deregisterTMCl|
-	//000004c0  6f 6e 65 54 61 62 6c 65  00 5f 5f 67 6d 6f 6e 5f  |oneTable.__gmon_|
-	//000004d0  73 74 61 72 74 5f 5f 00  5f 49 54 4d 5f 72 65 67  |start__._ITM_reg|
-	//000004e0  69 73 74 65 72 54 4d 43  6c 6f 6e 65 54 61 62 6c  |isterTMCloneTabl|
-	//000004f0  65 00 00 00 00 00 02 00  02 00 00 00 00 00 02 00  |e...............|
-	//00000500  01 00 01 00 01 00 00 00  10 00 00 00 00 00 00 00  |................|
-	//00000510  75 1a 69 09 00 00 02 00  31 00 00 00 00 00 00 00  |u.i.....1.......|
-	//00000520  b8 3d 00 00 00 00 00 00  08 00 00 00 00 00 00 00  |.=..............|
-	//00000530  40 11 00 00 00 00 00 00  c0 3d 00 00 00 00 00 00  |@........=......|
-	//00000540  08 00 00 00 00 00 00 00  00 11 00 00 00 00 00 00  |................|
-	//00000550  08 40 00 00 00 00 00 00  08 00 00 00 00 00 00 00  |.@..............|
-	//00000560  08 40 00 00 00 00 00 00  d8 3f 00 00 00 00 00 00  |.@.......?......|
-	//*
-	//00004a50  90 06 00 00 00 00 00 00  22 00 00 00 33 00 00 00  |........"...3...|
-	//00004a60  08 00 00 00 00 00 00 00  18 00 00 00 00 00 00 00  |................|
-	//00004a70  09 00 00 00 03 00 00 00  00 00 00 00 00 00 00 00  |................|
-	//00004a80  00 00 00 00 00 00 00 00  88 3e 00 00 00 00 00 00  |.........>......|
-	//00004a90  0d 02 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
-	//00004aa0  01 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
-	//00004ab0  11 00 00 00 03 00 00 00  00 00 00 00 00 00 00 00  |................|
-	//00004ac0  00 00 00 00 00 00 00 00  95 40 00 00 00 00 00 00  |.........@......|
-	//00004ad0  5a 01 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |Z...............|
-	//00004ae0  01 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
-	//00004af0
-	xadmin@hw:~/ xwks.git.1 / xapp - c11$
-	xadmin@hw : ~/ xwks.git.1 / xapp - c11$ strace . / myapp
-	execve("./myapp", ["./myapp"], 0x7ffcf4947bc0 /* 35 vars */) = 0
-	brk(NULL) = 0x559849a13000
-	arch_prctl(0x3001 /* ARCH_??? */, 0x7ffc32ae7450) = -1 EINVAL(无效的参数)
-	access("/etc/ld.so.preload", R_OK) = -1 ENOENT(没有那个文件或目录)
-	openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY | O_CLOEXEC) = 3
-	fstat(3, { st_mode = S_IFREG | 0644, st_size = 116436, ... }) = 0
-	mmap(NULL, 116436, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2b2010f000
-	close(3) = 0
-	openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY | O_CLOEXEC) = 3
-	read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\360A\2\0\0\0\0\0"..., 832) = 832
-	pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
-	pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
-	pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\237\333t\347\262\27\320l\223\27*\202C\370T\177"..., 68, 880) = 68
-	fstat(3, { st_mode = S_IFREG | 0755, st_size = 2029560, ... }) = 0
-	mmap(NULL, 8192, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0) = 0x7f2b2010d000
-	pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
-	pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
-	pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\237\333t\347\262\27\320l\223\27*\202C\370T\177"..., 68, 880) = 68
-	mmap(NULL, 2037344, PROT_READ, MAP_PRIVATE | MAP_DENYWRITE, 3, 0) = 0x7f2b1ff1b000
-	mmap(0x7f2b1ff3d000, 1540096, PROT_READ | PROT_EXEC, MAP_PRIVATE | MAP_FIXED | MAP_DENYWRITE, 3, 0x22000) = 0x7f2b1ff3d000
-	mmap(0x7f2b200b5000, 319488, PROT_READ, MAP_PRIVATE | MAP_FIXED | MAP_DENYWRITE, 3, 0x19a000) = 0x7f2b200b5000
-	mmap(0x7f2b20103000, 24576, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_FIXED | MAP_DENYWRITE, 3, 0x1e7000) = 0x7f2b20103000
-	mmap(0x7f2b20109000, 13920, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_FIXED | MAP_ANONYMOUS, -1, 0) = 0x7f2b20109000
-	close(3) = 0
-	arch_prctl(ARCH_SET_FS, 0x7f2b2010e540) = 0
-	mprotect(0x7f2b20103000, 16384, PROT_READ) = 0
-	mprotect(0x55984946a000, 4096, PROT_READ) = 0
-	mprotect(0x7f2b20159000, 4096, PROT_READ) = 0
-	munmap(0x7f2b2010f000, 116436) = 0
-	fstat(1, { st_mode = S_IFCHR | 0620, st_rdev = makedev(0x88, 0x3), ... }) = 0
-	brk(NULL) = 0x559849a13000
-	brk(0x559849a34000) = 0x559849a34000
-	write(1, "  >> the app starting ... ...\n", 30 >> the app starting ... ...
-	) = 30
-	write(1, "   >>> do something ... ...\n", 28 >> > do something ... ...
-	) = 28
-	write(1, "  >> the app exit.\n", 19 >> the app exit.
-	) = 19
-	exit_group(0) = ?
-	++ + exited with 0 ++ +
-	xadmin@hw : ~/ xwks.git.1 / xapp - c11$
+//xadmin@hw:~/xwks.git.1/xapp-c11$ type gcc
+//gcc 是 /usr/bin/gcc
+//xadmin@hw:~/xwks.git.1/xapp-c11$ ll /usr/bin/gcc
+//lrwxrwxrwx 1 root root 5 3月  20  2020 /usr/bin/gcc -> gcc-9*
+//xadmin@hw:~/xwks.git.1/xapp-c11$ ll /usr/bin/gcc-9
+//lrwxrwxrwx 1 root root 22 3月  10 01:57 /usr/bin/gcc-9 -> x86_64-linux-gnu-gcc-9*
+//xadmin@hw:~/xwks.git.1/xapp-c11$ ll /usr/bin/x86_64-linux-gnu-gcc-9 
+//-rwxr-xr-x 1 root root 1158288 3月  10 01:57 /usr/bin/x86_64-linux-gnu-gcc-9*
+//xadmin@hw:~/xwks.git.1/xapp-c11$ 
+//
+//xadmin@hw:~/xwks.git.1/xapp-c11$ ll /usr/bin/x86_64-linux-gnu-
+//x86_64-linux-gnu-addr2line         x86_64-linux-gnu-gcc-9             x86_64-linux-gnu-gcov-9            x86_64-linux-gnu-ld
+//x86_64-linux-gnu-ar                x86_64-linux-gnu-gcc-ar            x86_64-linux-gnu-gcov-dump         x86_64-linux-gnu-ld.bfd
+//x86_64-linux-gnu-as                x86_64-linux-gnu-gcc-ar-10         x86_64-linux-gnu-gcov-dump-10      x86_64-linux-gnu-ld.gold
+//x86_64-linux-gnu-c++filt           x86_64-linux-gnu-gcc-ar-8          x86_64-linux-gnu-gcov-dump-8       x86_64-linux-gnu-lto-dump-10
+//x86_64-linux-gnu-cpp               x86_64-linux-gnu-gcc-ar-9          x86_64-linux-gnu-gcov-dump-9       x86_64-linux-gnu-nm
+//x86_64-linux-gnu-cpp-10            x86_64-linux-gnu-gcc-nm            x86_64-linux-gnu-gcov-tool         x86_64-linux-gnu-objcopy
+//x86_64-linux-gnu-cpp-8             x86_64-linux-gnu-gcc-nm-10         x86_64-linux-gnu-gcov-tool-10      x86_64-linux-gnu-objdump
+//x86_64-linux-gnu-cpp-9             x86_64-linux-gnu-gcc-nm-8          x86_64-linux-gnu-gcov-tool-8       x86_64-linux-gnu-pkg-config
+//x86_64-linux-gnu-dwp               x86_64-linux-gnu-gcc-nm-9          x86_64-linux-gnu-gcov-tool-9       x86_64-linux-gnu-python3.8-config
+//x86_64-linux-gnu-elfedit           x86_64-linux-gnu-gcc-ranlib        x86_64-linux-gnu-gdc               x86_64-linux-gnu-python3-config
+//x86_64-linux-gnu-g++               x86_64-linux-gnu-gcc-ranlib-10     x86_64-linux-gnu-gdc-10            x86_64-linux-gnu-ranlib
+//x86_64-linux-gnu-g++-10            x86_64-linux-gnu-gcc-ranlib-8      x86_64-linux-gnu-gfortran          x86_64-linux-gnu-readelf
+//x86_64-linux-gnu-g++-9             x86_64-linux-gnu-gcc-ranlib-9      x86_64-linux-gnu-gfortran-8        x86_64-linux-gnu-size
+//x86_64-linux-gnu-gcc               x86_64-linux-gnu-gcov              x86_64-linux-gnu-gfortran-9        x86_64-linux-gnu-strings
+//x86_64-linux-gnu-gcc-10            x86_64-linux-gnu-gcov-10           x86_64-linux-gnu-gold              x86_64-linux-gnu-strip
+//x86_64-linux-gnu-gcc-8             x86_64-linux-gnu-gcov-8            x86_64-linux-gnu-gprof             
+//
+//xadmin@hw:~/xwks.git.1/xapp-c11$ file myapp myapp-c11-0.1.00.c 
+//myapp:              ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=a631e2b6138646e92904273fc8c8d3004621ee4e, for GNU/Linux 3.2.0, with debug_info, not stripped
+//myapp-c11-0.1.00.c: C source, UTF-8 Unicode text
+//xadmin@hw:~/xwks.git.1/xapp-c11$ 
+//
+//xadmin@hw:~/xwks.git.1/xapp-c11$ ldd myapp
+//        linux-vdso.so.1 (0x00007ffc851b6000)
+//        libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f7bd7f62000)
+//        /lib64/ld-linux-x86-64.so.2 (0x00007f7bd8178000)
+//xadmin@hw:~/xwks.git.1/xapp-c11$ 
+//
+//xadmin@hw:~/xwks.git.1/xapp-c11$ ll /lib64/ld-linux-x86-64.so.2 
+//lrwxrwxrwx 1 root root 32 2月  25 03:42 /lib64/ld-linux-x86-64.so.2 -> /lib/x86_64-linux-gnu/ld-2.31.so*
+//
+//xadmin@hw:~/xwks.git.1/xapp-c11$ ll /lib/x86_64-linux-gnu/ld-2.31.so 
+//-rwxr-xr-x 1 root root 191472 2月  25 03:42 /lib/x86_64-linux-gnu/ld-2.31.so*
+//
+//xadmin@hw:~/xwks.git.1/xapp-c11$ ldd  /lib/x86_64-linux-gnu/ld-2.31.so*
+//        statically linked
+//
+//xadmin@hw:~/xwks.git.1/xapp-c11$ ll  /lib/x86_64-linux-gnu/libc.so.6
+//lrwxrwxrwx 1 root root 12 2月  25 03:42 /lib/x86_64-linux-gnu/libc.so.6 -> libc-2.31.so*
+//xadmin@hw:~/xwks.git.1/xapp-c11$ ll  /lib/x86_64-linux-gnu/libc-2.31.so
+//-rwxr-xr-x 1 root root 2029560 2月  25 03:42 /lib/x86_64-linux-gnu/libc-2.31.so*
+//
+//xadmin@hw:~/xwks.git.1/xapp-c11$ ldd  /lib/x86_64-linux-gnu/libc-2.31.so
+//        /lib64/ld-linux-x86-64.so.2 (0x00007fe3e139e000)
+//        linux-vdso.so.1 (0x00007ffe5a7a3000)
+//xadmin@hw:~/xwks.git.1/xapp-c11$ 
+//
+//xadmin@hw:~/xwks.git.1/xapp-c11$ file  /lib/x86_64-linux-gnu/libc-2.31.so /lib/x86_64-linux-gnu/ld-2.31.so
+///lib/x86_64-linux-gnu/libc-2.31.so: ELF 64-bit LSB shared object, x86-64, version 1 (GNU/Linux), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=9fdb74e7b217d06c93172a8243f8547f947ee6d1, for GNU/Linux 3.2.0, stripped
+///lib/x86_64-linux-gnu/ld-2.31.so:   ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=39bd4a6852f6b9962ad57117d11b6f130d32f7fd, stripped
+//
+//xadmin@hw:~/xwks.git.1/xapp-c11$ type readelf
+//readelf 是 /usr/bin/readelf
+//xadmin@hw:~/xwks.git.1/xapp-c11$ readelf -h myapp
+//ELF 头：
+//  Magic：   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+//  类别:                              ELF64
+//  数据:                              2 补码，小端序 (little endian)
+//  Version:                           1 (current)
+//  OS/ABI:                            UNIX - System V
+//  ABI 版本:                          0
+//  类型:                              DYN (共享目标文件)
+//  系统架构:                          Advanced Micro Devices X86-64
+//  版本:                              0x1
+//  入口点地址：               0x1060
+//  程序头起点：          64 (bytes into file)
+//  Start of section headers:          16880 (bytes into file)
+//  标志：             0x0
+//  Size of this header:               64 (bytes)
+//  Size of program headers:           56 (bytes)
+//  Number of program headers:         13
+//  Size of section headers:           64 (bytes)
+//  Number of section headers:         36
+//  Section header string table index: 35
+//xadmin@hw:~/xwks.git.1/xapp-c11$ 
+//xadmin@hw:~/xwks.git.1/xapp-c11$ objdump -d -Mintel myapp
+//myapp：     文件格式 elf64-x86-64
+//Disassembly of section .init:
+//0000000000001000 <_init>:
+//    1000:       f3 0f 1e fa             endbr64 
+//    1004:       48 83 ec 08             sub    rsp,0x8
+//    1008:       48 8b 05 d9 2f 00 00    mov    rax,QWORD PTR [rip+0x2fd9]        # 3fe8 <__gmon_start__>
+//    100f:       48 85 c0                test   rax,rax
+//    1012:       74 02                   je     1016 <_init+0x16>
+//    1014:       ff d0                   call   rax
+//    1016:       48 83 c4 08             add    rsp,0x8
+//    101a:       c3                      ret    
+//
+//Disassembly of section .plt:
+//
+//0000000000001020 <.plt>:
+//    1020:       ff 35 9a 2f 00 00       push   QWORD PTR [rip+0x2f9a]        # 3fc0 <_GLOBAL_OFFSET_TABLE_+0x8>
+//    1026:       f2 ff 25 9b 2f 00 00    bnd jmp QWORD PTR [rip+0x2f9b]        # 3fc8 <_GLOBAL_OFFSET_TABLE_+0x10>
+//    102d:       0f 1f 00                nop    DWORD PTR [rax]
+//    1030:       f3 0f 1e fa             endbr64 
+//    1034:       68 00 00 00 00          push   0x0
+//    1039:       f2 e9 e1 ff ff ff       bnd jmp 1020 <.plt>
+//    103f:       90                      nop
+//
+//Disassembly of section .plt.got:
+//
+//0000000000001040 <__cxa_finalize@plt>:
+//    1040:       f3 0f 1e fa             endbr64 
+//    1044:       f2 ff 25 ad 2f 00 00    bnd jmp QWORD PTR [rip+0x2fad]        # 3ff8 <__cxa_finalize@GLIBC_2.2.5>
+//    104b:       0f 1f 44 00 00          nop    DWORD PTR [rax+rax*1+0x0]
+//
+//Disassembly of section .plt.sec:
+//
+//0000000000001050 <puts@plt>:
+//    1050:       f3 0f 1e fa             endbr64 
+//    1054:       f2 ff 25 75 2f 00 00    bnd jmp QWORD PTR [rip+0x2f75]        # 3fd0 <puts@GLIBC_2.2.5>
+//    105b:       0f 1f 44 00 00          nop    DWORD PTR [rax+rax*1+0x0]
+//
+//Disassembly of section .text:
+//
+//0000000000001060 <_start>:
+//    1060:       f3 0f 1e fa             endbr64 
+//    1064:       31 ed                   xor    ebp,ebp
+//    1066:       49 89 d1                mov    r9,rdx
+//    1069:       5e                      pop    rsi
+//    106a:       48 89 e2                mov    rdx,rsp
+//    106d:       48 83 e4 f0             and    rsp,0xfffffffffffffff0
+//    1071:       50                      push   rax
+//    1072:       54                      push   rsp
+//    1073:       4c 8d 05 86 01 00 00    lea    r8,[rip+0x186]        # 1200 <__libc_csu_fini>
+//    107a:       48 8d 0d 0f 01 00 00    lea    rcx,[rip+0x10f]        # 1190 <__libc_csu_init>
+//    1081:       48 8d 3d c1 00 00 00    lea    rdi,[rip+0xc1]        # 1149 <main>
+//    1088:       ff 15 52 2f 00 00       call   QWORD PTR [rip+0x2f52]        # 3fe0 <__libc_start_main@GLIBC_2.2.5>
+//    108e:       f4                      hlt    
+//    108f:       90                      nop
+//
+//0000000000001090 <deregister_tm_clones>:
+//    1090:       48 8d 3d 79 2f 00 00    lea    rdi,[rip+0x2f79]        # 4010 <__TMC_END__>
+//    1097:       48 8d 05 72 2f 00 00    lea    rax,[rip+0x2f72]        # 4010 <__TMC_END__>
+//    109e:       48 39 f8                cmp    rax,rdi
+//    10a1:       74 15                   je     10b8 <deregister_tm_clones+0x28>
+//    10a3:       48 8b 05 2e 2f 00 00    mov    rax,QWORD PTR [rip+0x2f2e]        # 3fd8 <_ITM_deregisterTMCloneTable>
+//    10aa:       48 85 c0                test   rax,rax
+//    10ad:       74 09                   je     10b8 <deregister_tm_clones+0x28>
+//    10af:       ff e0                   jmp    rax
+//    10b1:       0f 1f 80 00 00 00 00    nop    DWORD PTR [rax+0x0]
+//    10b8:       c3                      ret    
+//    10b9:       0f 1f 80 00 00 00 00    nop    DWORD PTR [rax+0x0]
+//
+//00000000000010c0 <register_tm_clones>:
+//    10c0:       48 8d 3d 49 2f 00 00    lea    rdi,[rip+0x2f49]        # 4010 <__TMC_END__>
+//    10c7:       48 8d 35 42 2f 00 00    lea    rsi,[rip+0x2f42]        # 4010 <__TMC_END__>
+//    10ce:       48 29 fe                sub    rsi,rdi
+//    10d1:       48 89 f0                mov    rax,rsi
+//    10d4:       48 c1 ee 3f             shr    rsi,0x3f
+//    10d8:       48 c1 f8 03             sar    rax,0x3
+//    10dc:       48 01 c6                add    rsi,rax
+//    10df:       48 d1 fe                sar    rsi,1
+//    10e2:       74 14                   je     10f8 <register_tm_clones+0x38>
+//    10e4:       48 8b 05 05 2f 00 00    mov    rax,QWORD PTR [rip+0x2f05]        # 3ff0 <_ITM_registerTMCloneTable>
+//    10eb:       48 85 c0                test   rax,rax
+//    10ee:       74 08                   je     10f8 <register_tm_clones+0x38>
+//    10f0:       ff e0                   jmp    rax
+//    10f2:       66 0f 1f 44 00 00       nop    WORD PTR [rax+rax*1+0x0]
+//    10f8:       c3                      ret    
+//    10f9:       0f 1f 80 00 00 00 00    nop    DWORD PTR [rax+0x0]
+//
+//0000000000001100 <__do_global_dtors_aux>:
+//    1100:       f3 0f 1e fa             endbr64 
+//    1104:       80 3d 05 2f 00 00 00    cmp    BYTE PTR [rip+0x2f05],0x0        # 4010 <__TMC_END__>
+//    110b:       75 2b                   jne    1138 <__do_global_dtors_aux+0x38>
+//    110d:       55                      push   rbp
+//    110e:       48 83 3d e2 2e 00 00    cmp    QWORD PTR [rip+0x2ee2],0x0        # 3ff8 <__cxa_finalize@GLIBC_2.2.5>
+//    1115:       00 
+//    1116:       48 89 e5                mov    rbp,rsp
+//    1119:       74 0c                   je     1127 <__do_global_dtors_aux+0x27>
+//    111b:       48 8b 3d e6 2e 00 00    mov    rdi,QWORD PTR [rip+0x2ee6]        # 4008 <__dso_handle>
+//    1122:       e8 19 ff ff ff          call   1040 <__cxa_finalize@plt>
+//    1127:       e8 64 ff ff ff          call   1090 <deregister_tm_clones>
+//    112c:       c6 05 dd 2e 00 00 01    mov    BYTE PTR [rip+0x2edd],0x1        # 4010 <__TMC_END__>
+//    1133:       5d                      pop    rbp
+//    1134:       c3                      ret    
+//    1135:       0f 1f 00                nop    DWORD PTR [rax]
+//    1138:       c3                      ret    
+//    1139:       0f 1f 80 00 00 00 00    nop    DWORD PTR [rax+0x0]
+//
+//0000000000001140 <frame_dummy>:
+//    1140:       f3 0f 1e fa             endbr64 
+//    1144:       e9 77 ff ff ff          jmp    10c0 <register_tm_clones>
+//
+//0000000000001149 <main>:
+//    1149:       f3 0f 1e fa             endbr64 
+//    114d:       55                      push   rbp
+//    114e:       48 89 e5                mov    rbp,rsp
+//    1151:       48 83 ec 10             sub    rsp,0x10
+//    1155:       89 7d fc                mov    DWORD PTR [rbp-0x4],edi
+//    1158:       48 89 75 f0             mov    QWORD PTR [rbp-0x10],rsi
+//    115c:       48 8d 3d a1 0e 00 00    lea    rdi,[rip+0xea1]        # 2004 <_IO_stdin_used+0x4>
+//    1163:       e8 e8 fe ff ff          call   1050 <puts@plt>
+//    1168:       48 8d 3d b3 0e 00 00    lea    rdi,[rip+0xeb3]        # 2022 <_IO_stdin_used+0x22>
+//    116f:       e8 dc fe ff ff          call   1050 <puts@plt>
+//    1174:       48 8d 3d c3 0e 00 00    lea    rdi,[rip+0xec3]        # 203e <_IO_stdin_used+0x3e>
+//    117b:       e8 d0 fe ff ff          call   1050 <puts@plt>
+//    1180:       b8 00 00 00 00          mov    eax,0x0
+//    1185:       c9                      leave  
+//    1186:       c3                      ret    
+//    1187:       66 0f 1f 84 00 00 00    nop    WORD PTR [rax+rax*1+0x0]
+//    118e:       00 00 
+//
+//0000000000001190 <__libc_csu_init>:
+//    1190:       f3 0f 1e fa             endbr64 
+//    1194:       41 57                   push   r15
+//    1196:       4c 8d 3d 1b 2c 00 00    lea    r15,[rip+0x2c1b]        # 3db8 <__frame_dummy_init_array_entry>
+//    119d:       41 56                   push   r14
+//    119f:       49 89 d6                mov    r14,rdx
+//    11a2:       41 55                   push   r13
+//    11a4:       49 89 f5                mov    r13,rsi
+//    11a7:       41 54                   push   r12
+//    11a9:       41 89 fc                mov    r12d,edi
+//    11ac:       55                      push   rbp
+//    11ad:       48 8d 2d 0c 2c 00 00    lea    rbp,[rip+0x2c0c]        # 3dc0 <__do_global_dtors_aux_fini_array_entry>
+//    11b4:       53                      push   rbx
+//    11b5:       4c 29 fd                sub    rbp,r15
+//    11b8:       48 83 ec 08             sub    rsp,0x8
+//    11bc:       e8 3f fe ff ff          call   1000 <_init>
+//    11c1:       48 c1 fd 03             sar    rbp,0x3
+//    11c5:       74 1f                   je     11e6 <__libc_csu_init+0x56>
+//    11c7:       31 db                   xor    ebx,ebx
+//    11c9:       0f 1f 80 00 00 00 00    nop    DWORD PTR [rax+0x0]
+//    11d0:       4c 89 f2                mov    rdx,r14
+//    11d3:       4c 89 ee                mov    rsi,r13
+//    11d6:       44 89 e7                mov    edi,r12d
+//    11d9:       41 ff 14 df             call   QWORD PTR [r15+rbx*8]
+//    11dd:       48 83 c3 01             add    rbx,0x1
+//    11e1:       48 39 dd                cmp    rbp,rbx
+//    11e4:       75 ea                   jne    11d0 <__libc_csu_init+0x40>
+//    11e6:       48 83 c4 08             add    rsp,0x8
+//    11ea:       5b                      pop    rbx
+//    11eb:       5d                      pop    rbp
+//    11ec:       41 5c                   pop    r12
+//    11ee:       41 5d                   pop    r13
+//    11f0:       41 5e                   pop    r14
+//    11f2:       41 5f                   pop    r15
+//    11f4:       c3                      ret    
+//    11f5:       66 66 2e 0f 1f 84 00    data16 nop WORD PTR cs:[rax+rax*1+0x0]
+//    11fc:       00 00 00 00 
+//
+//0000000000001200 <__libc_csu_fini>:
+//    1200:       f3 0f 1e fa             endbr64 
+//    1204:       c3                      ret    
+//
+//Disassembly of section .fini:
+//
+//0000000000001208 <_fini>:
+//    1208:       f3 0f 1e fa             endbr64 
+//    120c:       48 83 ec 08             sub    rsp,0x8
+//    1210:       48 83 c4 08             add    rsp,0x8
+//    1214:       c3                      ret    
+//xadmin@hw:~/xwks.git.1/xapp-c11$ 
+//xadmin@hw:~/xwks.git.1/xapp-c11$ hexdump -C myapp
+//00000000  7f 45 4c 46 02 01 01 00  00 00 00 00 00 00 00 00  |.ELF............|
+//00000010  03 00 3e 00 01 00 00 00  60 10 00 00 00 00 00 00  |..>.....`.......|
+//00000020  40 00 00 00 00 00 00 00  f0 41 00 00 00 00 00 00  |@........A......|
+//00000030  00 00 00 00 40 00 38 00  0d 00 40 00 24 00 23 00  |....@.8...@.$.#.|
+//00000040  06 00 00 00 04 00 00 00  40 00 00 00 00 00 00 00  |........@.......|
+//00000050  40 00 00 00 00 00 00 00  40 00 00 00 00 00 00 00  |@.......@.......|
+//00000060  d8 02 00 00 00 00 00 00  d8 02 00 00 00 00 00 00  |................|
+//00000070  08 00 00 00 00 00 00 00  03 00 00 00 04 00 00 00  |................|
+//00000080  18 03 00 00 00 00 00 00  18 03 00 00 00 00 00 00  |................|
+//00000090  18 03 00 00 00 00 00 00  1c 00 00 00 00 00 00 00  |................|
+//000000a0  1c 00 00 00 00 00 00 00  01 00 00 00 00 00 00 00  |................|
+//000000b0  01 00 00 00 04 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000000c0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000000d0  f8 05 00 00 00 00 00 00  f8 05 00 00 00 00 00 00  |................|
+//000000e0  00 10 00 00 00 00 00 00  01 00 00 00 05 00 00 00  |................|
+//000000f0  00 10 00 00 00 00 00 00  00 10 00 00 00 00 00 00  |................|
+//00000100  00 10 00 00 00 00 00 00  15 02 00 00 00 00 00 00  |................|
+//00000110  15 02 00 00 00 00 00 00  00 10 00 00 00 00 00 00  |................|
+//00000120  01 00 00 00 04 00 00 00  00 20 00 00 00 00 00 00  |......... ......|
+//00000130  00 20 00 00 00 00 00 00  00 20 00 00 00 00 00 00  |. ....... ......|
+//00000140  a0 01 00 00 00 00 00 00  a0 01 00 00 00 00 00 00  |................|
+//00000150  00 10 00 00 00 00 00 00  01 00 00 00 06 00 00 00  |................|
+//00000160  b8 2d 00 00 00 00 00 00  b8 3d 00 00 00 00 00 00  |.-.......=......|
+//00000170  b8 3d 00 00 00 00 00 00  58 02 00 00 00 00 00 00  |.=......X.......|
+//00000180  60 02 00 00 00 00 00 00  00 10 00 00 00 00 00 00  |`...............|
+//00000190  02 00 00 00 06 00 00 00  c8 2d 00 00 00 00 00 00  |.........-......|
+//000001a0  c8 3d 00 00 00 00 00 00  c8 3d 00 00 00 00 00 00  |.=.......=......|
+//000001b0  f0 01 00 00 00 00 00 00  f0 01 00 00 00 00 00 00  |................|
+//000001c0  08 00 00 00 00 00 00 00  04 00 00 00 04 00 00 00  |................|
+//000001d0  38 03 00 00 00 00 00 00  38 03 00 00 00 00 00 00  |8.......8.......|
+//000001e0  38 03 00 00 00 00 00 00  20 00 00 00 00 00 00 00  |8....... .......|
+//000001f0  20 00 00 00 00 00 00 00  08 00 00 00 00 00 00 00  | ...............|
+//00000200  04 00 00 00 04 00 00 00  58 03 00 00 00 00 00 00  |........X.......|
+//00000210  58 03 00 00 00 00 00 00  58 03 00 00 00 00 00 00  |X.......X.......|
+//00000220  44 00 00 00 00 00 00 00  44 00 00 00 00 00 00 00  |D.......D.......|
+//00000230  04 00 00 00 00 00 00 00  53 e5 74 64 04 00 00 00  |........S.td....|
+//00000240  38 03 00 00 00 00 00 00  38 03 00 00 00 00 00 00  |8.......8.......|
+//00000250  38 03 00 00 00 00 00 00  20 00 00 00 00 00 00 00  |8....... .......|
+//00000260  20 00 00 00 00 00 00 00  08 00 00 00 00 00 00 00  | ...............|
+//00000270  50 e5 74 64 04 00 00 00  54 20 00 00 00 00 00 00  |P.td....T ......|
+//00000280  54 20 00 00 00 00 00 00  54 20 00 00 00 00 00 00  |T ......T ......|
+//00000290  44 00 00 00 00 00 00 00  44 00 00 00 00 00 00 00  |D.......D.......|
+//000002a0  04 00 00 00 00 00 00 00  51 e5 74 64 06 00 00 00  |........Q.td....|
+//000002b0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//*
+//000002d0  00 00 00 00 00 00 00 00  10 00 00 00 00 00 00 00  |................|
+//000002e0  52 e5 74 64 04 00 00 00  b8 2d 00 00 00 00 00 00  |R.td.....-......|
+//000002f0  b8 3d 00 00 00 00 00 00  b8 3d 00 00 00 00 00 00  |.=.......=......|
+//00000300  48 02 00 00 00 00 00 00  48 02 00 00 00 00 00 00  |H.......H.......|
+//00000310  01 00 00 00 00 00 00 00  2f 6c 69 62 36 34 2f 6c  |......../lib64/l|
+//00000320  64 2d 6c 69 6e 75 78 2d  78 38 36 2d 36 34 2e 73  |d-linux-x86-64.s|
+//00000330  6f 2e 32 00 00 00 00 00  04 00 00 00 10 00 00 00  |o.2.............|
+//00000340  05 00 00 00 47 4e 55 00  02 00 00 c0 04 00 00 00  |....GNU.........|
+//00000350  03 00 00 00 00 00 00 00  04 00 00 00 14 00 00 00  |................|
+//00000360  03 00 00 00 47 4e 55 00  a6 31 e2 b6 13 86 46 e9  |....GNU..1....F.|
+//00000370  29 04 27 3f c8 c8 d3 00  46 21 ee 4e 04 00 00 00  |).'?....F!.N....|
+//00000380  10 00 00 00 01 00 00 00  47 4e 55 00 00 00 00 00  |........GNU.....|
+//00000390  03 00 00 00 02 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000003a0  02 00 00 00 06 00 00 00  01 00 00 00 06 00 00 00  |................|
+//000003b0  00 00 81 00 00 00 00 00  06 00 00 00 00 00 00 00  |................|
+//000003c0  d1 65 ce 6d 00 00 00 00  00 00 00 00 00 00 00 00  |.e.m............|
+//000003d0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000003e0  3d 00 00 00 20 00 00 00  00 00 00 00 00 00 00 00  |=... ...........|
+//000003f0  00 00 00 00 00 00 00 00  0b 00 00 00 12 00 00 00  |................|
+//00000400  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00000410  1f 00 00 00 12 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00000420  00 00 00 00 00 00 00 00  59 00 00 00 20 00 00 00  |........Y... ...|
+//00000430  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00000440  68 00 00 00 20 00 00 00  00 00 00 00 00 00 00 00  |h... ...........|
+//00000450  00 00 00 00 00 00 00 00  10 00 00 00 22 00 00 00  |............"...|
+//00000460  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00000470  00 6c 69 62 63 2e 73 6f  2e 36 00 70 75 74 73 00  |.libc.so.6.puts.|
+//00000480  5f 5f 63 78 61 5f 66 69  6e 61 6c 69 7a 65 00 5f  |__cxa_finalize._|
+//00000490  5f 6c 69 62 63 5f 73 74  61 72 74 5f 6d 61 69 6e  |_libc_start_main|
+//000004a0  00 47 4c 49 42 43 5f 32  2e 32 2e 35 00 5f 49 54  |.GLIBC_2.2.5._IT|
+//000004b0  4d 5f 64 65 72 65 67 69  73 74 65 72 54 4d 43 6c  |M_deregisterTMCl|
+//000004c0  6f 6e 65 54 61 62 6c 65  00 5f 5f 67 6d 6f 6e 5f  |oneTable.__gmon_|
+//000004d0  73 74 61 72 74 5f 5f 00  5f 49 54 4d 5f 72 65 67  |start__._ITM_reg|
+//000004e0  69 73 74 65 72 54 4d 43  6c 6f 6e 65 54 61 62 6c  |isterTMCloneTabl|
+//000004f0  65 00 00 00 00 00 02 00  02 00 00 00 00 00 02 00  |e...............|
+//00000500  01 00 01 00 01 00 00 00  10 00 00 00 00 00 00 00  |................|
+//00000510  75 1a 69 09 00 00 02 00  31 00 00 00 00 00 00 00  |u.i.....1.......|
+//00000520  b8 3d 00 00 00 00 00 00  08 00 00 00 00 00 00 00  |.=..............|
+//00000530  40 11 00 00 00 00 00 00  c0 3d 00 00 00 00 00 00  |@........=......|
+//00000540  08 00 00 00 00 00 00 00  00 11 00 00 00 00 00 00  |................|
+//00000550  08 40 00 00 00 00 00 00  08 00 00 00 00 00 00 00  |.@..............|
+//00000560  08 40 00 00 00 00 00 00  d8 3f 00 00 00 00 00 00  |.@.......?......|
+//00000570  06 00 00 00 01 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00000580  e0 3f 00 00 00 00 00 00  06 00 00 00 03 00 00 00  |.?..............|
+//00000590  00 00 00 00 00 00 00 00  e8 3f 00 00 00 00 00 00  |.........?......|
+//000005a0  06 00 00 00 04 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000005b0  f0 3f 00 00 00 00 00 00  06 00 00 00 05 00 00 00  |.?..............|
+//000005c0  00 00 00 00 00 00 00 00  f8 3f 00 00 00 00 00 00  |.........?......|
+//000005d0  06 00 00 00 06 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000005e0  d0 3f 00 00 00 00 00 00  07 00 00 00 02 00 00 00  |.?..............|
+//000005f0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//*
+//00001000  f3 0f 1e fa 48 83 ec 08  48 8b 05 d9 2f 00 00 48  |....H...H.../..H|
+//00001010  85 c0 74 02 ff d0 48 83  c4 08 c3 00 00 00 00 00  |..t...H.........|
+//00001020  ff 35 9a 2f 00 00 f2 ff  25 9b 2f 00 00 0f 1f 00  |.5./....%./.....|
+//00001030  f3 0f 1e fa 68 00 00 00  00 f2 e9 e1 ff ff ff 90  |....h...........|
+//00001040  f3 0f 1e fa f2 ff 25 ad  2f 00 00 0f 1f 44 00 00  |......%./....D..|
+//00001050  f3 0f 1e fa f2 ff 25 75  2f 00 00 0f 1f 44 00 00  |......%u/....D..|
+//00001060  f3 0f 1e fa 31 ed 49 89  d1 5e 48 89 e2 48 83 e4  |....1.I..^H..H..|
+//00001070  f0 50 54 4c 8d 05 86 01  00 00 48 8d 0d 0f 01 00  |.PTL......H.....|
+//00001080  00 48 8d 3d c1 00 00 00  ff 15 52 2f 00 00 f4 90  |.H.=......R/....|
+//00001090  48 8d 3d 79 2f 00 00 48  8d 05 72 2f 00 00 48 39  |H.=y/..H..r/..H9|
+//000010a0  f8 74 15 48 8b 05 2e 2f  00 00 48 85 c0 74 09 ff  |.t.H.../..H..t..|
+//000010b0  e0 0f 1f 80 00 00 00 00  c3 0f 1f 80 00 00 00 00  |................|
+//000010c0  48 8d 3d 49 2f 00 00 48  8d 35 42 2f 00 00 48 29  |H.=I/..H.5B/..H)|
+//000010d0  fe 48 89 f0 48 c1 ee 3f  48 c1 f8 03 48 01 c6 48  |.H..H..?H...H..H|
+//000010e0  d1 fe 74 14 48 8b 05 05  2f 00 00 48 85 c0 74 08  |..t.H.../..H..t.|
+//000010f0  ff e0 66 0f 1f 44 00 00  c3 0f 1f 80 00 00 00 00  |..f..D..........|
+//00001100  f3 0f 1e fa 80 3d 05 2f  00 00 00 75 2b 55 48 83  |.....=./...u+UH.|
+//00001110  3d e2 2e 00 00 00 48 89  e5 74 0c 48 8b 3d e6 2e  |=.....H..t.H.=..|
+//00001120  00 00 e8 19 ff ff ff e8  64 ff ff ff c6 05 dd 2e  |........d.......|
+//00001130  00 00 01 5d c3 0f 1f 00  c3 0f 1f 80 00 00 00 00  |...]............|
+//00001140  f3 0f 1e fa e9 77 ff ff  ff f3 0f 1e fa 55 48 89  |.....w.......UH.|
+//00001150  e5 48 83 ec 10 89 7d fc  48 89 75 f0 48 8d 3d a1  |.H....}.H.u.H.=.|
+//00001160  0e 00 00 e8 e8 fe ff ff  48 8d 3d b3 0e 00 00 e8  |........H.=.....|
+//00001170  dc fe ff ff 48 8d 3d c3  0e 00 00 e8 d0 fe ff ff  |....H.=.........|
+//00001180  b8 00 00 00 00 c9 c3 66  0f 1f 84 00 00 00 00 00  |.......f........|
+//00001190  f3 0f 1e fa 41 57 4c 8d  3d 1b 2c 00 00 41 56 49  |....AWL.=.,..AVI|
+//000011a0  89 d6 41 55 49 89 f5 41  54 41 89 fc 55 48 8d 2d  |..AUI..ATA..UH.-|
+//000011b0  0c 2c 00 00 53 4c 29 fd  48 83 ec 08 e8 3f fe ff  |.,..SL).H....?..|
+//000011c0  ff 48 c1 fd 03 74 1f 31  db 0f 1f 80 00 00 00 00  |.H...t.1........|
+//000011d0  4c 89 f2 4c 89 ee 44 89  e7 41 ff 14 df 48 83 c3  |L..L..D..A...H..|
+//000011e0  01 48 39 dd 75 ea 48 83  c4 08 5b 5d 41 5c 41 5d  |.H9.u.H...[]A\A]|
+//000011f0  41 5e 41 5f c3 66 66 2e  0f 1f 84 00 00 00 00 00  |A^A_.ff.........|
+//00001200  f3 0f 1e fa c3 00 00 00  f3 0f 1e fa 48 83 ec 08  |............H...|
+//00001210  48 83 c4 08 c3 00 00 00  00 00 00 00 00 00 00 00  |H...............|
+//00001220  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//*
+//00002000  01 00 02 00 20 20 3e 3e  20 74 68 65 20 61 70 70  |....  >> the app|
+//00002010  20 73 74 61 72 74 69 6e  67 20 2e 2e 2e 20 2e 2e  | starting ... ..|
+//00002020  2e 00 20 20 20 3e 3e 3e  20 64 6f 20 73 6f 6d 65  |..   >>> do some|
+//00002030  74 68 69 6e 67 20 2e 2e  2e 20 2e 2e 2e 00 20 20  |thing ... ....  |
+//00002040  3e 3e 20 74 68 65 20 61  70 70 20 65 78 69 74 2e  |>> the app exit.|
+//00002050  00 00 00 00 01 1b 03 3b  40 00 00 00 07 00 00 00  |.......;@.......|
+//00002060  cc ef ff ff 74 00 00 00  ec ef ff ff 9c 00 00 00  |....t...........|
+//00002070  fc ef ff ff b4 00 00 00  0c f0 ff ff 5c 00 00 00  |............\...|
+//00002080  f5 f0 ff ff cc 00 00 00  3c f1 ff ff ec 00 00 00  |........<.......|
+//00002090  ac f1 ff ff 34 01 00 00  14 00 00 00 00 00 00 00  |....4...........|
+//000020a0  01 7a 52 00 01 78 10 01  1b 0c 07 08 90 01 00 00  |.zR..x..........|
+//000020b0  14 00 00 00 1c 00 00 00  a8 ef ff ff 2f 00 00 00  |............/...|
+//000020c0  00 44 07 10 00 00 00 00  24 00 00 00 34 00 00 00  |.D......$...4...|
+//000020d0  50 ef ff ff 20 00 00 00  00 0e 10 46 0e 18 4a 0f  |P... ......F..J.|
+//000020e0  0b 77 08 80 00 3f 1a 3a  2a 33 24 22 00 00 00 00  |.w...?.:*3$"....|
+//000020f0  14 00 00 00 5c 00 00 00  48 ef ff ff 10 00 00 00  |....\...H.......|
+//00002100  00 00 00 00 00 00 00 00  14 00 00 00 74 00 00 00  |............t...|
+//00002110  40 ef ff ff 10 00 00 00  00 00 00 00 00 00 00 00  |@...............|
+//00002120  1c 00 00 00 8c 00 00 00  21 f0 ff ff 3e 00 00 00  |........!...>...|
+//00002130  00 45 0e 10 86 02 43 0d  06 75 0c 07 08 00 00 00  |.E....C..u......|
+//00002140  44 00 00 00 ac 00 00 00  48 f0 ff ff 65 00 00 00  |D.......H...e...|
+//00002150  00 46 0e 10 8f 02 49 0e  18 8e 03 45 0e 20 8d 04  |.F....I....E. ..|
+//00002160  45 0e 28 8c 05 44 0e 30  86 06 48 0e 38 83 07 47  |E.(..D.0..H.8..G|
+//00002170  0e 40 6e 0e 38 41 0e 30  41 0e 28 42 0e 20 42 0e  |.@n.8A.0A.(B. B.|
+//00002180  18 42 0e 10 42 0e 08 00  10 00 00 00 f4 00 00 00  |.B..B...........|
+//00002190  70 f0 ff ff 05 00 00 00  00 00 00 00 00 00 00 00  |p...............|
+//000021a0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//*
+//00002db0  00 00 00 00 00 00 00 00  40 11 00 00 00 00 00 00  |........@.......|
+//00002dc0  00 11 00 00 00 00 00 00  01 00 00 00 00 00 00 00  |................|
+//00002dd0  01 00 00 00 00 00 00 00  0c 00 00 00 00 00 00 00  |................|
+//00002de0  00 10 00 00 00 00 00 00  0d 00 00 00 00 00 00 00  |................|
+//00002df0  08 12 00 00 00 00 00 00  19 00 00 00 00 00 00 00  |................|
+//00002e00  b8 3d 00 00 00 00 00 00  1b 00 00 00 00 00 00 00  |.=..............|
+//00002e10  08 00 00 00 00 00 00 00  1a 00 00 00 00 00 00 00  |................|
+//00002e20  c0 3d 00 00 00 00 00 00  1c 00 00 00 00 00 00 00  |.=..............|
+//00002e30  08 00 00 00 00 00 00 00  f5 fe ff 6f 00 00 00 00  |...........o....|
+//00002e40  a0 03 00 00 00 00 00 00  05 00 00 00 00 00 00 00  |................|
+//00002e50  70 04 00 00 00 00 00 00  06 00 00 00 00 00 00 00  |p...............|
+//00002e60  c8 03 00 00 00 00 00 00  0a 00 00 00 00 00 00 00  |................|
+//00002e70  82 00 00 00 00 00 00 00  0b 00 00 00 00 00 00 00  |................|
+//00002e80  18 00 00 00 00 00 00 00  15 00 00 00 00 00 00 00  |................|
+//00002e90  00 00 00 00 00 00 00 00  03 00 00 00 00 00 00 00  |................|
+//00002ea0  b8 3f 00 00 00 00 00 00  02 00 00 00 00 00 00 00  |.?..............|
+//00002eb0  18 00 00 00 00 00 00 00  14 00 00 00 00 00 00 00  |................|
+//00002ec0  07 00 00 00 00 00 00 00  17 00 00 00 00 00 00 00  |................|
+//00002ed0  e0 05 00 00 00 00 00 00  07 00 00 00 00 00 00 00  |................|
+//00002ee0  20 05 00 00 00 00 00 00  08 00 00 00 00 00 00 00  | ...............|
+//00002ef0  c0 00 00 00 00 00 00 00  09 00 00 00 00 00 00 00  |................|
+//00002f00  18 00 00 00 00 00 00 00  1e 00 00 00 00 00 00 00  |................|
+//00002f10  08 00 00 00 00 00 00 00  fb ff ff 6f 00 00 00 00  |...........o....|
+//00002f20  01 00 00 08 00 00 00 00  fe ff ff 6f 00 00 00 00  |...........o....|
+//00002f30  00 05 00 00 00 00 00 00  ff ff ff 6f 00 00 00 00  |...........o....|
+//00002f40  01 00 00 00 00 00 00 00  f0 ff ff 6f 00 00 00 00  |...........o....|
+//00002f50  f2 04 00 00 00 00 00 00  f9 ff ff 6f 00 00 00 00  |...........o....|
+//00002f60  03 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00002f70  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//*
+//00002fb0  00 00 00 00 00 00 00 00  c8 3d 00 00 00 00 00 00  |.........=......|
+//00002fc0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00002fd0  30 10 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |0...............|
+//00002fe0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//*
+//00003000  00 00 00 00 00 00 00 00  08 40 00 00 00 00 00 00  |.........@......|
+//00003010  47 43 43 3a 20 28 55 62  75 6e 74 75 20 39 2e 34  |GCC: (Ubuntu 9.4|
+//00003020  2e 30 2d 31 75 62 75 6e  74 75 31 7e 32 30 2e 30  |.0-1ubuntu1~20.0|
+//00003030  34 2e 31 29 20 39 2e 34  2e 30 00 2c 00 00 00 02  |4.1) 9.4.0.,....|
+//00003040  00 00 00 00 00 08 00 00  00 00 00 49 11 00 00 00  |...........I....|
+//00003050  00 00 00 3e 00 00 00 00  00 00 00 00 00 00 00 00  |...>............|
+//00003060  00 00 00 00 00 00 00 00  00 00 00 ee 02 00 00 04  |................|
+//00003070  00 00 00 00 00 08 01 2c  01 00 00 0c 8a 02 00 00  |.......,........|
+//00003080  36 00 00 00 49 11 00 00  00 00 00 00 3e 00 00 00  |6...I.......>...|
+//00003090  00 00 00 00 00 00 00 00  02 2f 00 00 00 02 d1 17  |........./......|
+//000030a0  39 00 00 00 03 08 07 ec  01 00 00 03 04 07 f1 01  |9...............|
+//000030b0  00 00 04 08 03 01 08 cc  00 00 00 03 02 07 19 01  |................|
+//000030c0  00 00 03 01 06 ce 00 00  00 03 02 05 25 00 00 00  |............%...|
+//000030d0  05 04 05 69 6e 74 00 03  08 05 a9 00 00 00 02 16  |...int..........|
+//000030e0  02 00 00 03 98 19 6c 00  00 00 02 0c 02 00 00 03  |......l.........|
+//000030f0  99 1b 6c 00 00 00 06 08  91 00 00 00 03 01 06 d5  |..l.............|
+//00003100  00 00 00 07 c3 00 00 00  d8 04 31 08 1f 02 00 00  |..........1.....|
+//00003110  08 65 00 00 00 04 33 07  65 00 00 00 00 08 0c 01  |.e....3.e.......|
+//00003120  00 00 04 36 09 8b 00 00  00 08 08 82 00 00 00 04  |...6............|
+//00003130  37 09 8b 00 00 00 10 08  57 02 00 00 04 38 09 8b  |7.......W....8..|
+//00003140  00 00 00 18 08 f4 00 00  00 04 39 09 8b 00 00 00  |..........9.....|
+//00003150  20 08 57 00 00 00 04 3a  09 8b 00 00 00 28 08 fe  | .W....:.....(..|
+//00003160  01 00 00 04 3b 09 8b 00  00 00 30 08 6c 00 00 00  |....;.....0.l...|
+//00003170  04 3c 09 8b 00 00 00 38  08 00 00 00 00 04 3d 09  |.<.....8......=.|
+//00003180  8b 00 00 00 40 08 74 02  00 00 04 40 09 8b 00 00  |....@.t....@....|
+//00003190  00 48 08 33 02 00 00 04  41 09 8b 00 00 00 50 08  |.H.3....A.....P.|
+//000031a0  18 00 00 00 04 42 09 8b  00 00 00 58 08 79 00 00  |.....B.....X.y..|
+//000031b0  00 04 44 16 38 02 00 00  60 08 1e 02 00 00 04 46  |..D.8...`......F|
+//000031c0  14 3e 02 00 00 68 08 82  02 00 00 04 48 07 65 00  |.>...h......H.e.|
+//000031d0  00 00 70 08 49 02 00 00  04 49 07 65 00 00 00 74  |..p.I....I.e...t|
+//000031e0  08 0c 00 00 00 04 4a 0b  73 00 00 00 78 08 b2 00  |......J.s...x...|
+//000031f0  00 00 04 4d 12 50 00 00  00 80 08 65 02 00 00 04  |...M.P.....e....|
+//00003200  4e 0f 57 00 00 00 82 08  ea 00 00 00 04 4f 08 44  |N.W..........O.D|
+//00003210  02 00 00 83 08 a3 00 00  00 04 51 0f 54 02 00 00  |..........Q.T...|
+//00003220  88 08 10 00 00 00 04 59  0d 7f 00 00 00 90 08 e3  |.......Y........|
+//00003230  01 00 00 04 5b 17 5f 02  00 00 98 08 28 02 00 00  |....[._.....(...|
+//00003240  04 5c 19 6a 02 00 00 a0  08 cb 01 00 00 04 5d 14  |.\.j..........].|
+//00003250  3e 02 00 00 a8 08 8f 00  00 00 04 5e 09 47 00 00  |>..........^.G..|
+//00003260  00 b0 08 d9 01 00 00 04  5f 0a 2d 00 00 00 b8 08  |........_.-.....|
+//00003270  51 02 00 00 04 60 07 65  00 00 00 c0 08 03 01 00  |Q....`.e........|
+//00003280  00 04 62 08 70 02 00 00  c4 00 02 c7 00 00 00 05  |..b.p...........|
+//00003290  07 19 98 00 00 00 09 a4  02 00 00 04 2b 0e 0a df  |............+...|
+//000032a0  00 00 00 06 08 33 02 00  00 06 08 98 00 00 00 0b  |.....3..........|
+//000032b0  91 00 00 00 54 02 00 00  0c 39 00 00 00 00 00 06  |....T....9......|
+//000032c0  08 2b 02 00 00 0a e0 01  00 00 06 08 5a 02 00 00  |.+..........Z...|
+//000032d0  0a 25 02 00 00 06 08 65  02 00 00 0b 91 00 00 00  |.%.....e........|
+//000032e0  80 02 00 00 0c 39 00 00  00 13 00 0d 43 02 00 00  |.....9......C...|
+//000032f0  06 89 0e 8c 02 00 00 06  08 1f 02 00 00 0d 9d 02  |................|
+//00003300  00 00 06 8a 0e 8c 02 00  00 0d 9c 00 00 00 06 8b  |................|
+//00003310  0e 8c 02 00 00 0e c6 01  00 00 01 0b 05 65 00 00  |.............e..|
+//00003320  00 49 11 00 00 00 00 00  00 3e 00 00 00 00 00 00  |.I.......>......|
+//00003330  00 01 9c eb 02 00 00 0f  da 00 00 00 01 0b 0e 65  |...............e|
+//00003340  00 00 00 02 91 6c 0f be  00 00 00 01 0b 1a eb 02  |.....l..........|
+//00003350  00 00 02 91 60 00 06 08  8b 00 00 00 00 01 11 01  |....`...........|
+//00003360  25 0e 13 0b 03 0e 1b 0e  11 01 12 07 10 17 00 00  |%...............|
+//00003370  02 16 00 03 0e 3a 0b 3b  0b 39 0b 49 13 00 00 03  |.....:.;.9.I....|
+//00003380  24 00 0b 0b 3e 0b 03 0e  00 00 04 0f 00 0b 0b 00  |$...>...........|
+//00003390  00 05 24 00 0b 0b 3e 0b  03 08 00 00 06 0f 00 0b  |..$...>.........|
+//000033a0  0b 49 13 00 00 07 13 01  03 0e 0b 0b 3a 0b 3b 0b  |.I..........:.;.|
+//000033b0  39 0b 01 13 00 00 08 0d  00 03 0e 3a 0b 3b 0b 39  |9..........:.;.9|
+//000033c0  0b 49 13 38 0b 00 00 09  16 00 03 0e 3a 0b 3b 0b  |.I.8........:.;.|
+//000033d0  39 0b 00 00 0a 13 00 03  0e 3c 19 00 00 0b 01 01  |9........<......|
+//000033e0  49 13 01 13 00 00 0c 21  00 49 13 2f 0b 00 00 0d  |I......!.I./....|
+//000033f0  34 00 03 0e 3a 0b 3b 0b  39 0b 49 13 3f 19 3c 19  |4...:.;.9.I.?.<.|
+//00003400  00 00 0e 2e 01 3f 19 03  0e 3a 0b 3b 0b 39 0b 27  |.....?...:.;.9.'|
+//00003410  19 49 13 11 01 12 07 40  18 96 42 19 01 13 00 00  |.I.....@..B.....|
+//00003420  0f 05 00 03 0e 3a 0b 3b  0b 39 0b 49 13 02 18 00  |.....:.;.9.I....|
+//00003430  00 00 12 01 00 00 03 00  e7 00 00 00 01 01 fb 0e  |................|
+//00003440  0d 00 01 01 01 01 00 00  00 01 00 00 01 2f 75 73  |............./us|
+//00003450  72 2f 6c 69 62 2f 67 63  63 2f 78 38 36 5f 36 34  |r/lib/gcc/x86_64|
+//00003460  2d 6c 69 6e 75 78 2d 67  6e 75 2f 39 2f 69 6e 63  |-linux-gnu/9/inc|
+//00003470  6c 75 64 65 00 2f 75 73  72 2f 69 6e 63 6c 75 64  |lude./usr/includ|
+//00003480  65 2f 78 38 36 5f 36 34  2d 6c 69 6e 75 78 2d 67  |e/x86_64-linux-g|
+//00003490  6e 75 2f 62 69 74 73 00  2f 75 73 72 2f 69 6e 63  |nu/bits./usr/inc|
+//000034a0  6c 75 64 65 2f 78 38 36  5f 36 34 2d 6c 69 6e 75  |lude/x86_64-linu|
+//000034b0  78 2d 67 6e 75 2f 62 69  74 73 2f 74 79 70 65 73  |x-gnu/bits/types|
+//000034c0  00 2f 75 73 72 2f 69 6e  63 6c 75 64 65 00 00 6d  |./usr/include..m|
+//000034d0  79 61 70 70 2d 63 31 31  2d 30 2e 31 2e 30 30 2e  |yapp-c11-0.1.00.|
+//000034e0  63 00 00 00 00 73 74 64  64 65 66 2e 68 00 01 00  |c....stddef.h...|
+//000034f0  00 74 79 70 65 73 2e 68  00 02 00 00 73 74 72 75  |.types.h....stru|
+//00003500  63 74 5f 46 49 4c 45 2e  68 00 03 00 00 46 49 4c  |ct_FILE.h....FIL|
+//00003510  45 2e 68 00 03 00 00 73  74 64 69 6f 2e 68 00 04  |E.h....stdio.h..|
+//00003520  00 00 00 05 01 00 09 02  49 11 00 00 00 00 00 00  |........I.......|
+//00003530  03 0b 01 05 05 08 2f 05  09 bf 05 05 bd 05 0c bc  |....../.........|
+//00003540  05 01 59 02 02 00 01 01  5f 49 4f 5f 62 75 66 5f  |..Y....._IO_buf_|
+//00003550  65 6e 64 00 5f 6f 6c 64  5f 6f 66 66 73 65 74 00  |end._old_offset.|
+//00003560  5f 49 4f 5f 73 61 76 65  5f 65 6e 64 00 73 68 6f  |_IO_save_end.sho|
+//00003570  72 74 20 69 6e 74 00 73  69 7a 65 5f 74 00 2f 68  |rt int.size_t./h|
+//00003580  6f 6d 65 2f 78 61 64 6d  69 6e 2f 78 77 6b 73 2e  |ome/xadmin/xwks.|
+//00003590  67 69 74 2e 31 2f 78 61  70 70 2d 63 31 31 00 5f  |git.1/xapp-c11._|
+//000035a0  49 4f 5f 77 72 69 74 65  5f 70 74 72 00 5f 66 6c  |IO_write_ptr._fl|
+//000035b0  61 67 73 00 5f 49 4f 5f  62 75 66 5f 62 61 73 65  |ags._IO_buf_base|
+//000035c0  00 5f 6d 61 72 6b 65 72  73 00 5f 49 4f 5f 72 65  |._markers._IO_re|
+//000035d0  61 64 5f 65 6e 64 00 5f  66 72 65 65 72 65 73 5f  |ad_end._freeres_|
+//000035e0  62 75 66 00 73 74 64 65  72 72 00 5f 6c 6f 63 6b  |buf.stderr._lock|
+//000035f0  00 6c 6f 6e 67 20 69 6e  74 00 5f 63 75 72 5f 63  |.long int._cur_c|
+//00003600  6f 6c 75 6d 6e 00 61 72  67 76 00 5f 49 4f 5f 46  |olumn.argv._IO_F|
+//00003610  49 4c 45 00 75 6e 73 69  67 6e 65 64 20 63 68 61  |ILE.unsigned cha|
+//00003620  72 00 61 72 67 63 00 5f  49 4f 5f 6d 61 72 6b 65  |r.argc._IO_marke|
+//00003630  72 00 5f 73 68 6f 72 74  62 75 66 00 5f 49 4f 5f  |r._shortbuf._IO_|
+//00003640  77 72 69 74 65 5f 62 61  73 65 00 5f 75 6e 75 73  |write_base._unus|
+//00003650  65 64 32 00 5f 49 4f 5f  72 65 61 64 5f 70 74 72  |ed2._IO_read_ptr|
+//00003660  00 73 68 6f 72 74 20 75  6e 73 69 67 6e 65 64 20  |.short unsigned |
+//00003670  69 6e 74 00 47 4e 55 20  43 31 31 20 39 2e 34 2e  |int.GNU C11 9.4.|
+//00003680  30 20 2d 6d 74 75 6e 65  3d 67 65 6e 65 72 69 63  |0 -mtune=generic|
+//00003690  20 2d 6d 61 72 63 68 3d  78 38 36 2d 36 34 20 2d  | -march=x86-64 -|
+//000036a0  67 20 2d 4f 30 20 2d 73  74 64 3d 63 31 31 20 2d  |g -O0 -std=c11 -|
+//000036b0  66 61 73 79 6e 63 68 72  6f 6e 6f 75 73 2d 75 6e  |fasynchronous-un|
+//000036c0  77 69 6e 64 2d 74 61 62  6c 65 73 20 2d 66 73 74  |wind-tables -fst|
+//000036d0  61 63 6b 2d 70 72 6f 74  65 63 74 6f 72 2d 73 74  |ack-protector-st|
+//000036e0  72 6f 6e 67 20 2d 66 73  74 61 63 6b 2d 63 6c 61  |rong -fstack-cla|
+//000036f0  73 68 2d 70 72 6f 74 65  63 74 69 6f 6e 20 2d 66  |sh-protection -f|
+//00003700  63 66 2d 70 72 6f 74 65  63 74 69 6f 6e 00 6d 61  |cf-protection.ma|
+//00003710  69 6e 00 5f 66 72 65 65  72 65 73 5f 6c 69 73 74  |in._freeres_list|
+//00003720  00 5f 5f 70 61 64 35 00  5f 49 4f 5f 63 6f 64 65  |.__pad5._IO_code|
+//00003730  63 76 74 00 6c 6f 6e 67  20 75 6e 73 69 67 6e 65  |cvt.long unsigne|
+//00003740  64 20 69 6e 74 00 5f 49  4f 5f 77 72 69 74 65 5f  |d int._IO_write_|
+//00003750  65 6e 64 00 5f 5f 6f 66  66 36 34 5f 74 00 5f 5f  |end.__off64_t.__|
+//00003760  6f 66 66 5f 74 00 5f 63  68 61 69 6e 00 5f 49 4f  |off_t._chain._IO|
+//00003770  5f 77 69 64 65 5f 64 61  74 61 00 5f 49 4f 5f 62  |_wide_data._IO_b|
+//00003780  61 63 6b 75 70 5f 62 61  73 65 00 73 74 64 69 6e  |ackup_base.stdin|
+//00003790  00 5f 66 6c 61 67 73 32  00 5f 6d 6f 64 65 00 5f  |._flags2._mode._|
+//000037a0  49 4f 5f 72 65 61 64 5f  62 61 73 65 00 5f 76 74  |IO_read_base._vt|
+//000037b0  61 62 6c 65 5f 6f 66 66  73 65 74 00 5f 49 4f 5f  |able_offset._IO_|
+//000037c0  73 61 76 65 5f 62 61 73  65 00 5f 66 69 6c 65 6e  |save_base._filen|
+//000037d0  6f 00 6d 79 61 70 70 2d  63 31 31 2d 30 2e 31 2e  |o.myapp-c11-0.1.|
+//000037e0  30 30 2e 63 00 73 74 64  6f 75 74 00 5f 49 4f 5f  |00.c.stdout._IO_|
+//000037f0  6c 6f 63 6b 5f 74 00 00  00 00 00 00 00 00 00 00  |lock_t..........|
+//00003800  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00003810  00 00 00 00 03 00 01 00  18 03 00 00 00 00 00 00  |................|
+//00003820  00 00 00 00 00 00 00 00  00 00 00 00 03 00 02 00  |................|
+//00003830  38 03 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |8...............|
+//00003840  00 00 00 00 03 00 03 00  58 03 00 00 00 00 00 00  |........X.......|
+//00003850  00 00 00 00 00 00 00 00  00 00 00 00 03 00 04 00  |................|
+//00003860  7c 03 00 00 00 00 00 00  00 00 00 00 00 00 00 00  ||...............|
+//00003870  00 00 00 00 03 00 05 00  a0 03 00 00 00 00 00 00  |................|
+//00003880  00 00 00 00 00 00 00 00  00 00 00 00 03 00 06 00  |................|
+//00003890  c8 03 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000038a0  00 00 00 00 03 00 07 00  70 04 00 00 00 00 00 00  |........p.......|
+//000038b0  00 00 00 00 00 00 00 00  00 00 00 00 03 00 08 00  |................|
+//000038c0  f2 04 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000038d0  00 00 00 00 03 00 09 00  00 05 00 00 00 00 00 00  |................|
+//000038e0  00 00 00 00 00 00 00 00  00 00 00 00 03 00 0a 00  |................|
+//000038f0  20 05 00 00 00 00 00 00  00 00 00 00 00 00 00 00  | ...............|
+//00003900  00 00 00 00 03 00 0b 00  e0 05 00 00 00 00 00 00  |................|
+//00003910  00 00 00 00 00 00 00 00  00 00 00 00 03 00 0c 00  |................|
+//00003920  00 10 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00003930  00 00 00 00 03 00 0d 00  20 10 00 00 00 00 00 00  |........ .......|
+//00003940  00 00 00 00 00 00 00 00  00 00 00 00 03 00 0e 00  |................|
+//00003950  40 10 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |@...............|
+//00003960  00 00 00 00 03 00 0f 00  50 10 00 00 00 00 00 00  |........P.......|
+//00003970  00 00 00 00 00 00 00 00  00 00 00 00 03 00 10 00  |................|
+//00003980  60 10 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |`...............|
+//00003990  00 00 00 00 03 00 11 00  08 12 00 00 00 00 00 00  |................|
+//000039a0  00 00 00 00 00 00 00 00  00 00 00 00 03 00 12 00  |................|
+//000039b0  00 20 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |. ..............|
+//000039c0  00 00 00 00 03 00 13 00  54 20 00 00 00 00 00 00  |........T ......|
+//000039d0  00 00 00 00 00 00 00 00  00 00 00 00 03 00 14 00  |................|
+//000039e0  98 20 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |. ..............|
+//000039f0  00 00 00 00 03 00 15 00  b8 3d 00 00 00 00 00 00  |.........=......|
+//00003a00  00 00 00 00 00 00 00 00  00 00 00 00 03 00 16 00  |................|
+//00003a10  c0 3d 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |.=..............|
+//00003a20  00 00 00 00 03 00 17 00  c8 3d 00 00 00 00 00 00  |.........=......|
+//00003a30  00 00 00 00 00 00 00 00  00 00 00 00 03 00 18 00  |................|
+//00003a40  b8 3f 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |.?..............|
+//00003a50  00 00 00 00 03 00 19 00  00 40 00 00 00 00 00 00  |.........@......|
+//00003a60  00 00 00 00 00 00 00 00  00 00 00 00 03 00 1a 00  |................|
+//00003a70  10 40 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |.@..............|
+//00003a80  00 00 00 00 03 00 1b 00  00 00 00 00 00 00 00 00  |................|
+//00003a90  00 00 00 00 00 00 00 00  00 00 00 00 03 00 1c 00  |................|
+//00003aa0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00003ab0  00 00 00 00 03 00 1d 00  00 00 00 00 00 00 00 00  |................|
+//00003ac0  00 00 00 00 00 00 00 00  00 00 00 00 03 00 1e 00  |................|
+//00003ad0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00003ae0  00 00 00 00 03 00 1f 00  00 00 00 00 00 00 00 00  |................|
+//00003af0  00 00 00 00 00 00 00 00  00 00 00 00 03 00 20 00  |.............. .|
+//00003b00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00003b10  01 00 00 00 04 00 f1 ff  00 00 00 00 00 00 00 00  |................|
+//00003b20  00 00 00 00 00 00 00 00  0c 00 00 00 02 00 10 00  |................|
+//00003b30  90 10 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00003b40  0e 00 00 00 02 00 10 00  c0 10 00 00 00 00 00 00  |................|
+//00003b50  00 00 00 00 00 00 00 00  21 00 00 00 02 00 10 00  |........!.......|
+//00003b60  00 11 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00003b70  37 00 00 00 01 00 1a 00  10 40 00 00 00 00 00 00  |7........@......|
+//00003b80  01 00 00 00 00 00 00 00  46 00 00 00 01 00 16 00  |........F.......|
+//00003b90  c0 3d 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |.=..............|
+//00003ba0  6d 00 00 00 02 00 10 00  40 11 00 00 00 00 00 00  |m.......@.......|
+//00003bb0  00 00 00 00 00 00 00 00  79 00 00 00 01 00 15 00  |........y.......|
+//00003bc0  b8 3d 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |.=..............|
+//00003bd0  98 00 00 00 04 00 f1 ff  00 00 00 00 00 00 00 00  |................|
+//00003be0  00 00 00 00 00 00 00 00  01 00 00 00 04 00 f1 ff  |................|
+//00003bf0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00003c00  ab 00 00 00 01 00 14 00  9c 21 00 00 00 00 00 00  |.........!......|
+//00003c10  00 00 00 00 00 00 00 00  00 00 00 00 04 00 f1 ff  |................|
+//00003c20  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00003c30  b9 00 00 00 00 00 15 00  c0 3d 00 00 00 00 00 00  |.........=......|
+//00003c40  00 00 00 00 00 00 00 00  ca 00 00 00 01 00 17 00  |................|
+//00003c50  c8 3d 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |.=..............|
+//00003c60  d3 00 00 00 00 00 15 00  b8 3d 00 00 00 00 00 00  |.........=......|
+//00003c70  00 00 00 00 00 00 00 00  e6 00 00 00 00 00 13 00  |................|
+//00003c80  54 20 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |T ..............|
+//00003c90  f9 00 00 00 01 00 18 00  b8 3f 00 00 00 00 00 00  |.........?......|
+//00003ca0  00 00 00 00 00 00 00 00  b5 01 00 00 02 00 0c 00  |................|
+//00003cb0  00 10 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00003cc0  0f 01 00 00 12 00 10 00  00 12 00 00 00 00 00 00  |................|
+//00003cd0  05 00 00 00 00 00 00 00  1f 01 00 00 20 00 00 00  |............ ...|
+//00003ce0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00003cf0  75 01 00 00 20 00 19 00  00 40 00 00 00 00 00 00  |u... ....@......|
+//00003d00  00 00 00 00 00 00 00 00  3b 01 00 00 12 00 00 00  |........;.......|
+//00003d10  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00003d20  4d 01 00 00 10 00 19 00  10 40 00 00 00 00 00 00  |M........@......|
+//00003d30  00 00 00 00 00 00 00 00  19 01 00 00 12 02 11 00  |................|
+//00003d40  08 12 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00003d50  54 01 00 00 12 00 00 00  00 00 00 00 00 00 00 00  |T...............|
+//00003d60  00 00 00 00 00 00 00 00  73 01 00 00 10 00 19 00  |........s.......|
+//00003d70  00 40 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |.@..............|
+//00003d80  80 01 00 00 20 00 00 00  00 00 00 00 00 00 00 00  |.... ...........|
+//00003d90  00 00 00 00 00 00 00 00  8f 01 00 00 11 02 19 00  |................|
+//00003da0  08 40 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |.@..............|
+//00003db0  9c 01 00 00 11 00 12 00  00 20 00 00 00 00 00 00  |......... ......|
+//00003dc0  04 00 00 00 00 00 00 00  ab 01 00 00 12 00 10 00  |................|
+//00003dd0  90 11 00 00 00 00 00 00  65 00 00 00 00 00 00 00  |........e.......|
+//00003de0  c5 00 00 00 10 00 1a 00  18 40 00 00 00 00 00 00  |.........@......|
+//00003df0  00 00 00 00 00 00 00 00  79 01 00 00 12 00 10 00  |........y.......|
+//00003e00  60 10 00 00 00 00 00 00  2f 00 00 00 00 00 00 00  |`......./.......|
+//00003e10  bb 01 00 00 10 00 1a 00  10 40 00 00 00 00 00 00  |.........@......|
+//00003e20  00 00 00 00 00 00 00 00  c7 01 00 00 12 00 10 00  |................|
+//00003e30  49 11 00 00 00 00 00 00  3e 00 00 00 00 00 00 00  |I.......>.......|
+//00003e40  cc 01 00 00 11 02 19 00  10 40 00 00 00 00 00 00  |.........@......|
+//00003e50  00 00 00 00 00 00 00 00  d8 01 00 00 20 00 00 00  |............ ...|
+//00003e60  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00003e70  f2 01 00 00 22 00 00 00  00 00 00 00 00 00 00 00  |...."...........|
+//00003e80  00 00 00 00 00 00 00 00  00 63 72 74 73 74 75 66  |.........crtstuf|
+//00003e90  66 2e 63 00 64 65 72 65  67 69 73 74 65 72 5f 74  |f.c.deregister_t|
+//00003ea0  6d 5f 63 6c 6f 6e 65 73  00 5f 5f 64 6f 5f 67 6c  |m_clones.__do_gl|
+//00003eb0  6f 62 61 6c 5f 64 74 6f  72 73 5f 61 75 78 00 63  |obal_dtors_aux.c|
+//00003ec0  6f 6d 70 6c 65 74 65 64  2e 38 30 36 31 00 5f 5f  |ompleted.8061.__|
+//00003ed0  64 6f 5f 67 6c 6f 62 61  6c 5f 64 74 6f 72 73 5f  |do_global_dtors_|
+//00003ee0  61 75 78 5f 66 69 6e 69  5f 61 72 72 61 79 5f 65  |aux_fini_array_e|
+//00003ef0  6e 74 72 79 00 66 72 61  6d 65 5f 64 75 6d 6d 79  |ntry.frame_dummy|
+//00003f00  00 5f 5f 66 72 61 6d 65  5f 64 75 6d 6d 79 5f 69  |.__frame_dummy_i|
+//00003f10  6e 69 74 5f 61 72 72 61  79 5f 65 6e 74 72 79 00  |nit_array_entry.|
+//00003f20  6d 79 61 70 70 2d 63 31  31 2d 30 2e 31 2e 30 30  |myapp-c11-0.1.00|
+//00003f30  2e 63 00 5f 5f 46 52 41  4d 45 5f 45 4e 44 5f 5f  |.c.__FRAME_END__|
+//00003f40  00 5f 5f 69 6e 69 74 5f  61 72 72 61 79 5f 65 6e  |.__init_array_en|
+//00003f50  64 00 5f 44 59 4e 41 4d  49 43 00 5f 5f 69 6e 69  |d._DYNAMIC.__ini|
+//00003f60  74 5f 61 72 72 61 79 5f  73 74 61 72 74 00 5f 5f  |t_array_start.__|
+//00003f70  47 4e 55 5f 45 48 5f 46  52 41 4d 45 5f 48 44 52  |GNU_EH_FRAME_HDR|
+//00003f80  00 5f 47 4c 4f 42 41 4c  5f 4f 46 46 53 45 54 5f  |._GLOBAL_OFFSET_|
+//00003f90  54 41 42 4c 45 5f 00 5f  5f 6c 69 62 63 5f 63 73  |TABLE_.__libc_cs|
+//00003fa0  75 5f 66 69 6e 69 00 5f  49 54 4d 5f 64 65 72 65  |u_fini._ITM_dere|
+//00003fb0  67 69 73 74 65 72 54 4d  43 6c 6f 6e 65 54 61 62  |gisterTMCloneTab|
+//00003fc0  6c 65 00 70 75 74 73 40  40 47 4c 49 42 43 5f 32  |le.puts@@GLIBC_2|
+//00003fd0  2e 32 2e 35 00 5f 65 64  61 74 61 00 5f 5f 6c 69  |.2.5._edata.__li|
+//00003fe0  62 63 5f 73 74 61 72 74  5f 6d 61 69 6e 40 40 47  |bc_start_main@@G|
+//00003ff0  4c 49 42 43 5f 32 2e 32  2e 35 00 5f 5f 64 61 74  |LIBC_2.2.5.__dat|
+//00004000  61 5f 73 74 61 72 74 00  5f 5f 67 6d 6f 6e 5f 73  |a_start.__gmon_s|
+//00004010  74 61 72 74 5f 5f 00 5f  5f 64 73 6f 5f 68 61 6e  |tart__.__dso_han|
+//00004020  64 6c 65 00 5f 49 4f 5f  73 74 64 69 6e 5f 75 73  |dle._IO_stdin_us|
+//00004030  65 64 00 5f 5f 6c 69 62  63 5f 63 73 75 5f 69 6e  |ed.__libc_csu_in|
+//00004040  69 74 00 5f 5f 62 73 73  5f 73 74 61 72 74 00 6d  |it.__bss_start.m|
+//00004050  61 69 6e 00 5f 5f 54 4d  43 5f 45 4e 44 5f 5f 00  |ain.__TMC_END__.|
+//00004060  5f 49 54 4d 5f 72 65 67  69 73 74 65 72 54 4d 43  |_ITM_registerTMC|
+//00004070  6c 6f 6e 65 54 61 62 6c  65 00 5f 5f 63 78 61 5f  |loneTable.__cxa_|
+//00004080  66 69 6e 61 6c 69 7a 65  40 40 47 4c 49 42 43 5f  |finalize@@GLIBC_|
+//00004090  32 2e 32 2e 35 00 00 2e  73 79 6d 74 61 62 00 2e  |2.2.5...symtab..|
+//000040a0  73 74 72 74 61 62 00 2e  73 68 73 74 72 74 61 62  |strtab..shstrtab|
+//000040b0  00 2e 69 6e 74 65 72 70  00 2e 6e 6f 74 65 2e 67  |..interp..note.g|
+//000040c0  6e 75 2e 70 72 6f 70 65  72 74 79 00 2e 6e 6f 74  |nu.property..not|
+//000040d0  65 2e 67 6e 75 2e 62 75  69 6c 64 2d 69 64 00 2e  |e.gnu.build-id..|
+//000040e0  6e 6f 74 65 2e 41 42 49  2d 74 61 67 00 2e 67 6e  |note.ABI-tag..gn|
+//000040f0  75 2e 68 61 73 68 00 2e  64 79 6e 73 79 6d 00 2e  |u.hash..dynsym..|
+//00004100  64 79 6e 73 74 72 00 2e  67 6e 75 2e 76 65 72 73  |dynstr..gnu.vers|
+//00004110  69 6f 6e 00 2e 67 6e 75  2e 76 65 72 73 69 6f 6e  |ion..gnu.version|
+//00004120  5f 72 00 2e 72 65 6c 61  2e 64 79 6e 00 2e 72 65  |_r..rela.dyn..re|
+//00004130  6c 61 2e 70 6c 74 00 2e  69 6e 69 74 00 2e 70 6c  |la.plt..init..pl|
+//00004140  74 2e 67 6f 74 00 2e 70  6c 74 2e 73 65 63 00 2e  |t.got..plt.sec..|
+//00004150  74 65 78 74 00 2e 66 69  6e 69 00 2e 72 6f 64 61  |text..fini..roda|
+//00004160  74 61 00 2e 65 68 5f 66  72 61 6d 65 5f 68 64 72  |ta..eh_frame_hdr|
+//00004170  00 2e 65 68 5f 66 72 61  6d 65 00 2e 69 6e 69 74  |..eh_frame..init|
+//00004180  5f 61 72 72 61 79 00 2e  66 69 6e 69 5f 61 72 72  |_array..fini_arr|
+//00004190  61 79 00 2e 64 79 6e 61  6d 69 63 00 2e 64 61 74  |ay..dynamic..dat|
+//000041a0  61 00 2e 62 73 73 00 2e  63 6f 6d 6d 65 6e 74 00  |a..bss..comment.|
+//000041b0  2e 64 65 62 75 67 5f 61  72 61 6e 67 65 73 00 2e  |.debug_aranges..|
+//000041c0  64 65 62 75 67 5f 69 6e  66 6f 00 2e 64 65 62 75  |debug_info..debu|
+//000041d0  67 5f 61 62 62 72 65 76  00 2e 64 65 62 75 67 5f  |g_abbrev..debug_|
+//000041e0  6c 69 6e 65 00 2e 64 65  62 75 67 5f 73 74 72 00  |line..debug_str.|
+//000041f0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//*
+//00004230  1b 00 00 00 01 00 00 00  02 00 00 00 00 00 00 00  |................|
+//00004240  18 03 00 00 00 00 00 00  18 03 00 00 00 00 00 00  |................|
+//00004250  1c 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004260  01 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004270  23 00 00 00 07 00 00 00  02 00 00 00 00 00 00 00  |#...............|
+//00004280  38 03 00 00 00 00 00 00  38 03 00 00 00 00 00 00  |8.......8.......|
+//00004290  20 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  | ...............|
+//000042a0  08 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000042b0  36 00 00 00 07 00 00 00  02 00 00 00 00 00 00 00  |6...............|
+//000042c0  58 03 00 00 00 00 00 00  58 03 00 00 00 00 00 00  |X.......X.......|
+//000042d0  24 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |$...............|
+//000042e0  04 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000042f0  49 00 00 00 07 00 00 00  02 00 00 00 00 00 00 00  |I...............|
+//00004300  7c 03 00 00 00 00 00 00  7c 03 00 00 00 00 00 00  ||.......|.......|
+//00004310  20 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  | ...............|
+//00004320  04 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004330  57 00 00 00 f6 ff ff 6f  02 00 00 00 00 00 00 00  |W......o........|
+//00004340  a0 03 00 00 00 00 00 00  a0 03 00 00 00 00 00 00  |................|
+//00004350  24 00 00 00 00 00 00 00  06 00 00 00 00 00 00 00  |$...............|
+//00004360  08 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004370  61 00 00 00 0b 00 00 00  02 00 00 00 00 00 00 00  |a...............|
+//00004380  c8 03 00 00 00 00 00 00  c8 03 00 00 00 00 00 00  |................|
+//00004390  a8 00 00 00 00 00 00 00  07 00 00 00 01 00 00 00  |................|
+//000043a0  08 00 00 00 00 00 00 00  18 00 00 00 00 00 00 00  |................|
+//000043b0  69 00 00 00 03 00 00 00  02 00 00 00 00 00 00 00  |i...............|
+//000043c0  70 04 00 00 00 00 00 00  70 04 00 00 00 00 00 00  |p.......p.......|
+//000043d0  82 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000043e0  01 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000043f0  71 00 00 00 ff ff ff 6f  02 00 00 00 00 00 00 00  |q......o........|
+//00004400  f2 04 00 00 00 00 00 00  f2 04 00 00 00 00 00 00  |................|
+//00004410  0e 00 00 00 00 00 00 00  06 00 00 00 00 00 00 00  |................|
+//00004420  02 00 00 00 00 00 00 00  02 00 00 00 00 00 00 00  |................|
+//00004430  7e 00 00 00 fe ff ff 6f  02 00 00 00 00 00 00 00  |~......o........|
+//00004440  00 05 00 00 00 00 00 00  00 05 00 00 00 00 00 00  |................|
+//00004450  20 00 00 00 00 00 00 00  07 00 00 00 01 00 00 00  | ...............|
+//00004460  08 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004470  8d 00 00 00 04 00 00 00  02 00 00 00 00 00 00 00  |................|
+//00004480  20 05 00 00 00 00 00 00  20 05 00 00 00 00 00 00  | ....... .......|
+//00004490  c0 00 00 00 00 00 00 00  06 00 00 00 00 00 00 00  |................|
+//000044a0  08 00 00 00 00 00 00 00  18 00 00 00 00 00 00 00  |................|
+//000044b0  97 00 00 00 04 00 00 00  42 00 00 00 00 00 00 00  |........B.......|
+//000044c0  e0 05 00 00 00 00 00 00  e0 05 00 00 00 00 00 00  |................|
+//000044d0  18 00 00 00 00 00 00 00  06 00 00 00 18 00 00 00  |................|
+//000044e0  08 00 00 00 00 00 00 00  18 00 00 00 00 00 00 00  |................|
+//000044f0  a1 00 00 00 01 00 00 00  06 00 00 00 00 00 00 00  |................|
+//00004500  00 10 00 00 00 00 00 00  00 10 00 00 00 00 00 00  |................|
+//00004510  1b 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004520  04 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004530  9c 00 00 00 01 00 00 00  06 00 00 00 00 00 00 00  |................|
+//00004540  20 10 00 00 00 00 00 00  20 10 00 00 00 00 00 00  | ....... .......|
+//00004550  20 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  | ...............|
+//00004560  10 00 00 00 00 00 00 00  10 00 00 00 00 00 00 00  |................|
+//00004570  a7 00 00 00 01 00 00 00  06 00 00 00 00 00 00 00  |................|
+//00004580  40 10 00 00 00 00 00 00  40 10 00 00 00 00 00 00  |@.......@.......|
+//00004590  10 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000045a0  10 00 00 00 00 00 00 00  10 00 00 00 00 00 00 00  |................|
+//000045b0  b0 00 00 00 01 00 00 00  06 00 00 00 00 00 00 00  |................|
+//000045c0  50 10 00 00 00 00 00 00  50 10 00 00 00 00 00 00  |P.......P.......|
+//000045d0  10 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000045e0  10 00 00 00 00 00 00 00  10 00 00 00 00 00 00 00  |................|
+//000045f0  b9 00 00 00 01 00 00 00  06 00 00 00 00 00 00 00  |................|
+//00004600  60 10 00 00 00 00 00 00  60 10 00 00 00 00 00 00  |`.......`.......|
+//00004610  a5 01 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004620  10 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004630  bf 00 00 00 01 00 00 00  06 00 00 00 00 00 00 00  |................|
+//00004640  08 12 00 00 00 00 00 00  08 12 00 00 00 00 00 00  |................|
+//00004650  0d 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004660  04 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004670  c5 00 00 00 01 00 00 00  02 00 00 00 00 00 00 00  |................|
+//00004680  00 20 00 00 00 00 00 00  00 20 00 00 00 00 00 00  |. ....... ......|
+//00004690  51 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |Q...............|
+//000046a0  04 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000046b0  cd 00 00 00 01 00 00 00  02 00 00 00 00 00 00 00  |................|
+//000046c0  54 20 00 00 00 00 00 00  54 20 00 00 00 00 00 00  |T ......T ......|
+//000046d0  44 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |D...............|
+//000046e0  04 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000046f0  db 00 00 00 01 00 00 00  02 00 00 00 00 00 00 00  |................|
+//00004700  98 20 00 00 00 00 00 00  98 20 00 00 00 00 00 00  |. ....... ......|
+//00004710  08 01 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004720  08 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004730  e5 00 00 00 0e 00 00 00  03 00 00 00 00 00 00 00  |................|
+//00004740  b8 3d 00 00 00 00 00 00  b8 2d 00 00 00 00 00 00  |.=.......-......|
+//00004750  08 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004760  08 00 00 00 00 00 00 00  08 00 00 00 00 00 00 00  |................|
+//00004770  f1 00 00 00 0f 00 00 00  03 00 00 00 00 00 00 00  |................|
+//00004780  c0 3d 00 00 00 00 00 00  c0 2d 00 00 00 00 00 00  |.=.......-......|
+//00004790  08 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000047a0  08 00 00 00 00 00 00 00  08 00 00 00 00 00 00 00  |................|
+//000047b0  fd 00 00 00 06 00 00 00  03 00 00 00 00 00 00 00  |................|
+//000047c0  c8 3d 00 00 00 00 00 00  c8 2d 00 00 00 00 00 00  |.=.......-......|
+//000047d0  f0 01 00 00 00 00 00 00  07 00 00 00 00 00 00 00  |................|
+//000047e0  08 00 00 00 00 00 00 00  10 00 00 00 00 00 00 00  |................|
+//000047f0  ab 00 00 00 01 00 00 00  03 00 00 00 00 00 00 00  |................|
+//00004800  b8 3f 00 00 00 00 00 00  b8 2f 00 00 00 00 00 00  |.?......./......|
+//00004810  48 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |H...............|
+//00004820  08 00 00 00 00 00 00 00  08 00 00 00 00 00 00 00  |................|
+//00004830  06 01 00 00 01 00 00 00  03 00 00 00 00 00 00 00  |................|
+//00004840  00 40 00 00 00 00 00 00  00 30 00 00 00 00 00 00  |.@.......0......|
+//00004850  10 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004860  08 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004870  0c 01 00 00 08 00 00 00  03 00 00 00 00 00 00 00  |................|
+//00004880  10 40 00 00 00 00 00 00  10 30 00 00 00 00 00 00  |.@.......0......|
+//00004890  08 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000048a0  01 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000048b0  11 01 00 00 01 00 00 00  30 00 00 00 00 00 00 00  |........0.......|
+//000048c0  00 00 00 00 00 00 00 00  10 30 00 00 00 00 00 00  |.........0......|
+//000048d0  2b 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |+...............|
+//000048e0  01 00 00 00 00 00 00 00  01 00 00 00 00 00 00 00  |................|
+//000048f0  1a 01 00 00 01 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004900  00 00 00 00 00 00 00 00  3b 30 00 00 00 00 00 00  |........;0......|
+//00004910  30 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |0...............|
+//00004920  01 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004930  29 01 00 00 01 00 00 00  00 00 00 00 00 00 00 00  |)...............|
+//00004940  00 00 00 00 00 00 00 00  6b 30 00 00 00 00 00 00  |........k0......|
+//00004950  f2 02 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004960  01 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004970  35 01 00 00 01 00 00 00  00 00 00 00 00 00 00 00  |5...............|
+//00004980  00 00 00 00 00 00 00 00  5d 33 00 00 00 00 00 00  |........]3......|
+//00004990  d5 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000049a0  01 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000049b0  43 01 00 00 01 00 00 00  00 00 00 00 00 00 00 00  |C...............|
+//000049c0  00 00 00 00 00 00 00 00  32 34 00 00 00 00 00 00  |........24......|
+//000049d0  16 01 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000049e0  01 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//000049f0  4f 01 00 00 01 00 00 00  30 00 00 00 00 00 00 00  |O.......0.......|
+//00004a00  00 00 00 00 00 00 00 00  48 35 00 00 00 00 00 00  |........H5......|
+//00004a10  af 02 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004a20  01 00 00 00 00 00 00 00  01 00 00 00 00 00 00 00  |................|
+//00004a30  01 00 00 00 02 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004a40  00 00 00 00 00 00 00 00  f8 37 00 00 00 00 00 00  |.........7......|
+//00004a50  90 06 00 00 00 00 00 00  22 00 00 00 33 00 00 00  |........"...3...|
+//00004a60  08 00 00 00 00 00 00 00  18 00 00 00 00 00 00 00  |................|
+//00004a70  09 00 00 00 03 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004a80  00 00 00 00 00 00 00 00  88 3e 00 00 00 00 00 00  |.........>......|
+//00004a90  0e 02 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004aa0  01 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004ab0  11 00 00 00 03 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004ac0  00 00 00 00 00 00 00 00  96 40 00 00 00 00 00 00  |.........@......|
+//00004ad0  5a 01 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |Z...............|
+//00004ae0  01 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+//00004af0
+//xadmin@hw:~/xwks.git.1/xapp-c11$ 
 
 #endif
 
 #if 0 // valgrind test
-	xadmin@hw:~/ xwks.git.1 / xapp - c11$ gcc - std = c11 - g - Wall - O0 myapp - c11 - 0.1.00.c - o myapp - lpthread
-	xadmin@hw : ~/ xwks.git.1 / xapp - c11$ valgrind --tool = memcheck --leak - check = full --track - origins = yes - s . / myapp
-	== 253148 == Memcheck, a memory error detector
-	== 253148 == Copyright(C) 2002 - 2017, and GNU GPL'd, by Julian Seward et al.
-	== 253148 == Using Valgrind - 3.15.0 and LibVEX; rerun with - h for copyright info
-	== 253148 == Command: . / myapp
-	== 253148==
-	>> the app starting ... ...
-	>> > do something ... ...
-	>> the app exit.
-	== 253148==
-	==253148 == HEAP SUMMARY :
-== 253148 == in use at exit : 0 bytes in 0 blocks
-== 253148 == total heap usage : 1 allocs, 1 frees, 1, 024 bytes allocated
-== 253148==
-==253148 == All heap blocks were freed -- no leaks are possible
-== 253148==
-==253148 == ERROR SUMMARY : 0 errors from 0 contexts(suppressed : 0 from 0)
-xadmin@hw : ~/ xwks.git.1 / xapp - c11$
-
+//xadmin@hw:~/xwks.git.1/xapp-c11$ gcc -std=c11 -g -Wall -O0 myapp-c11-0.1.00.c -o myapp
+//xadmin@hw:~/xwks.git.1/xapp-c11$ valgrind --tool=memcheck --leak-check=full --track-origins=yes -s ./myapp
+//==7123== Memcheck, a memory error detector
+//==7123== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+//==7123== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+//==7123== Command: ./myapp
+//==7123== 
+//  >> the app starting ... ...
+//   >>> do something ... ...
+//  >> the app exit.
+//==7123== 
+//==7123== HEAP SUMMARY:
+//==7123==     in use at exit: 0 bytes in 0 blocks
+//==7123==   total heap usage: 1 allocs, 1 frees, 1,024 bytes allocated
+//==7123== 
+//==7123== All heap blocks were freed -- no leaks are possible
+//==7123== 
+//==7123== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+//xadmin@hw:~/xwks.git.1/xapp-c11$ 
 #endif
